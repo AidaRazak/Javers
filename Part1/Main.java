@@ -1,9 +1,6 @@
 public class Main {
 
     public Main(String Deck){
-    this.deck = Deck;
-
-
     // create a new deck
     Deck deck = new Deck();
 
