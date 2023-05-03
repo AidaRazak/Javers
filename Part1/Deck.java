@@ -6,8 +6,8 @@ public class Deck {
 
     public Deck() {
         this.cards = new ArrayList<String>();
-        String[] suits = {"hearts", "diamonds", "clubs", "spades"};
-        String[] ranks = {"ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "jack", "queen", "king"};
+        String[] suits = {"h", "d", "c", "s"};
+        String[] ranks = {"2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K","A"};
         for (String suit : suits) {
             for (String rank : ranks) {
                 this.cards.add(rank + " of " + suit);
