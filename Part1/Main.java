@@ -1,35 +1,26 @@
 public class Main {
 
-    public Main(String Deck){
-    // create a new deck
-    Deck deck = new Deck();
+    public static void main(String[] args) {
+        // Create a new deck
+        Deck deck = new Deck();
 
-    // print the unshuffled deck
-    System.out.println(deck);
+        // Print the deck before shuffling
+        System.out.println("Deck before shuffling:");
+        System.out.println(deck);
 
-    // shuffle the deck
-    deck.shuffle();
+        // Shuffle the deck
+        deck.shuffle();
 
-    // print the shuffled deck
-    System.out.println(deck);
+        // Print the deck after shuffling
+        System.out.println("\nDeck after shuffling:");
+        System.out.println(deck);
 
-    // deal a card
-    String card = deck.deal();
-    System.out.println(card);
+        // Deal a card
+        String card = deck.deal();
+        System.out.println("\nDealt card: " + card);
 
-        // deal all the cards
-        while (true) {
-            card = deck.deal();
-            if (card != null) {
-                System.out.println(card);
-            } 
-            else {
-                break;
-            }
-        }
+        // Print the deck after dealing a card
+        System.out.println("\nDeck after dealing a card:");
+        System.out.println(deck);
     }
-
-
-
-
 }
