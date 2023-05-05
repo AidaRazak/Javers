@@ -10,7 +10,7 @@ public class Deck {
         String[] ranks = {"2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K","A"};
         for (String suit : suits) {
             for (String rank : ranks) {
-                this.cards.add(suit + rank );
+                this.cards.add(suit + rank ); 
             }
         }
     }
