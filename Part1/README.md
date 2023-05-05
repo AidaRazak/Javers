@@ -12,7 +12,7 @@ Implementation :
 
 1. Creating deck .(✅)
 2. Random the card in the centre.(✅)
-3. Random the card in players hand.
+3. Random the card in players hand.(✅)
 4. Database for who moves first.
 5. Clockwise-based turns.
 6. Winner of the round and game clear.

@@ -22,5 +22,10 @@ public class Main {
         // Print the deck after dealing a card
         System.out.println("\nDeck after dealing a card:");
         System.out.println(deck);
+
+        // Deal 7 cards to 4 players
+        System.out.println("\nTrick #1");
+        Deal7 deal = new Deal7();
+        deal.printPlayers();
     }
 }
