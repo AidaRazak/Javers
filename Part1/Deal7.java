@@ -16,10 +16,16 @@ public class Deal7 {
 
     private void dealCards() {
         deck.shuffle();
+        List<String> dealtCards = new ArrayList<>();
+        for (List<String> playerCards : players) {
+            dealtCards.addAll(playerCards);
+        }
+        deck.removeCards(dealtCards);
         for (int i = 0; i < 7; i++) {
             for (int j = 0; j < 4; j++) {
                 String card = deck.deal();
                 players.get(j).add(card);
+                dealtCards.add(card);
             }
         }
     }
