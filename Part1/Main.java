@@ -26,6 +26,7 @@ public class Main {
         // Deal 7 cards to 4 players
         System.out.println("\nTrick #1");
         Deal7 deal = new Deal7();
+        deal.removeDealtCards();
         deal.printPlayers();
     }
 }

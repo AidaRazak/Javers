@@ -30,10 +30,20 @@ public class Deal7 {
         }
     }
 
+    public void removeDealtCards() {
+        List<String> dealtCards = new ArrayList<>();
+        for (List<String> playerCards : players) {
+            dealtCards.addAll(playerCards);
+        }
+        deck.removeCards(dealtCards);
+    }
+
     public void printPlayers() {
         for (int i = 0; i < 4; i++) {
             System.out.println("Player " + (i+1) + ": " + players.get(i));
         }
+        System.out.println("\nDeck after dealing 7 cards to every player:");
+        System.out.println(deck);
     }
 
 }
