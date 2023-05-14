@@ -4,7 +4,7 @@
 
 No | ID       | Name                           | Task descriptions | Contribution %
 -- |----------| ------------------------------ | ----------------- | --------------
-1  |          |                                |                   |
+1  |1211103123|AL ARSHAD BIN AL HANISHAM       |                   |
 2  |          |                                |                   |
 3  |          |                                |                   |
 4  |1211103373| MUHAMMAD ALIF BIN KHABALI      |                   |
@@ -19,7 +19,7 @@ No | Feature                                                                    
 1  | All cards should be faced up to facilitate checking.                            | Y
 2  | Start a new game with randomized 52 cards.                                      | Y
 3  | The first card in the deck is the first lead card and is placed at the center.  | Y
-4  | The first lead card determines the first player.                                | 
+4  | The first lead card determines the first player.                                | Y
 5  | Deal 7 cards to each of the 4 players.                                          | Y
 6  | All players must follow the suit or rank of the lead card.                      |
 7  | The highest-rank card with the same suit as the lead card wins the trick.       |
