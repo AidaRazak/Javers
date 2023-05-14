@@ -3,36 +3,38 @@ import java.util.Collections;
 import java.util.List;
 
 public class Deck {
-    private ArrayList<String> cards;
+    private List<String> cards;
 
     public Deck() {
-        this.cards = new ArrayList<String>();
-        String[] suits = {"c","d","h","s"};
+        initializeDeck();
+    }
+
+    private void initializeDeck() {
+        cards = new ArrayList<>();
         String[] ranks = {"A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"};
+        String[] suits = {"s", "h", "d", "c"};
+
         for (String suit : suits) {
             for (String rank : ranks) {
-                this.cards.add(suit + rank); 
+                cards.add(rank + suit);
             }
         }
     }
 
     public void shuffle() {
-        Collections.shuffle(this.cards);
+        Collections.shuffle(cards);
     }
 
     public String deal() {
-        if (this.cards.size() == 0) {
+        if (!cards.isEmpty()) {
+            return cards.remove(cards.size() - 1);
+        } else {
             return null;
         }
-        return this.cards.remove(0);
-    }
-
-    public void removeCards(List<String> cardsToRemove) {
-        this.cards.removeAll(cardsToRemove);
     }
 
     @Override
     public String toString() {
-        return String.join(", ", this.cards);
+        return cards.toString();
     }
 }
