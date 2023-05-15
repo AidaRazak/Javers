@@ -24,7 +24,7 @@ public class Player {
 
         if (rank == 'A' || rank == '5' || rank == '9' || rank == 'K') {
             return new Player("Player1");
-        } else if (rank == '2' || rank == '6' || rank == 'T') {
+        } else if (rank == '2' || rank == '6' || rank == 'X') {
             return new Player("Player2");
         } else if (rank == '3' || rank == '7' || rank == 'J') {
             return new Player("Player3");
