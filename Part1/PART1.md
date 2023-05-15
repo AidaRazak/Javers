@@ -2,12 +2,12 @@
 
 ## A. Member Contributions
 
-No | ID       | Name                           | Task descriptions | Contribution %
--- |----------| ------------------------------ | ----------------- | --------------
-1  |1211103123|AL ARSHAD BIN AL HANISHAM       |                   |
-2  |          |                                |                   |
-3  |          |                                |                   |
-4  |1211103373| MUHAMMAD ALIF BIN KHABALI      |                   |
+No | ID       | Name                              | Task descriptions | Contribution %
+-- |----------| ------------------------------    | ----------------- | --------------
+1  |1211103123|AL ARSHAD BIN AL HANISHAM          |                   |
+2  |1211103216|SOFEA HAZREENA BINTI HASDI         |                   |
+3  |1211103196|NUR FARAHIYA AIDA BINTI ABDUL RAZAK|                   |
+4  |1211103373|MUHAMMAD ALIF BIN KHABALI          |                   |
 
 
 ## B. Feature Completion
