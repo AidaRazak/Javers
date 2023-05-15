@@ -37,4 +37,7 @@ public class Deck {
     public String toString() {
         return cards.toString();
     }
+
+    public void removeCards(List<String> dealtCards) {
+    }
 }
