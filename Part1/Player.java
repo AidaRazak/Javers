@@ -5,21 +5,16 @@ import java.util.Scanner;
 public class Player {
     private String name;
     private List<String> cards;
+    private int score;
+
     public Player(String name) {
         this.name = name;
         cards = new ArrayList<>();
+        score = 0;
     }
 
     public String getName() {
         return name;
-    }
-
-    public List<String> getCards() {
-        return cards;
-    }
-
-    public void setCards(List<String> cards) {
-        this.cards = cards;
     }
 
     public void addCard(String card) {
@@ -31,30 +26,31 @@ public class Player {
     }
 
     public void incrementScore() {
+        score++;
     }
 
     public void printCards() {
         System.out.println(name + "'s cards: " + cards);
     }
 
-    public String playCard(String leadSuit, String leadRank, List<String> centerCards) {
-        try (Scanner scanner = new Scanner(System.in)) {
-            while (true) {
-                System.out.print("\n" + name + " > ");
+    public String playCard(String leadSuit, String leadRank) {
+        Scanner scanner = new Scanner(System.in);
 
-                String card = scanner.nextLine();
+        while (true) {
+            System.out.print("\n" + name + " > ");
 
-                if (isValidCard(card, leadSuit, leadRank, centerCards)) {
-                    cards.remove(card); // Remove the played card from the player's hand
-                    return card;
-                } else {
-                    System.out.println("Invalid card. Try again.");
-                }
+            String card = scanner.nextLine();
+
+            if (isValidCard(card, leadSuit, leadRank)) {
+                cards.remove(card);
+                return card;
+            } else {
+                System.out.println("Invalid card. Try again.");
             }
         }
     }
 
-    private boolean isValidCard(String card, String leadSuit, String leadRank, List<String> centerCards) {
+    private boolean isValidCard(String card, String leadSuit, String leadRank) {
         String suit = card.substring(0, 1);
         String rank = card.substring(1);
 
@@ -79,7 +75,7 @@ public class Player {
 
         if (rank == 'A' || rank == '5' || rank == '9' || rank == 'K') {
             return new Player("Player1");
-        } else if (rank == '2' || rank == '6' || rank == 'x') {
+        } else if (rank == '2' || rank == '6' || rank == 'T') {
             return new Player("Player2");
         } else if (rank == '3' || rank == '7' || rank == 'J') {
             return new Player("Player3");
@@ -95,3 +91,4 @@ public class Player {
         return name;
     }
 }
+

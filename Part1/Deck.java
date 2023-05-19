@@ -12,7 +12,7 @@ public class Deck {
         centerCards.add(cards.remove(cards.size() - 1));
     }
 
-    public void updateCenterCards(String card) {
+    public void updateCenterCard(String card) {
         centerCards.add(card);
     }
 
@@ -40,12 +40,13 @@ public class Deck {
             return null;
         }
     }
-    public List<List<String>> dealToPlayers(int numPlayers, int cardsPerPlayer) {
-        List<List<String>> playerHands = new ArrayList<>();
-    
+
+    public List<String> dealToPlayers(int numPlayers, int cardsPerPlayer) {
+        List<String> playerHands = new ArrayList<>();
+
         for (int i = 0; i < numPlayers; i++) {
             List<String> hand = new ArrayList<>();
-    
+
             // Deal cards to the player's hand
             for (int j = 0; j < cardsPerPlayer; j++) {
                 String card = deal();
@@ -53,13 +54,13 @@ public class Deck {
                     hand.add(card);
                 }
             }
-    
-            playerHands.add(hand);
+
+            playerHands.add(hand.toString());
         }
-    
+
         return playerHands;
     }
-    
+
     @Override
     public String toString() {
         return cards.toString();
@@ -71,8 +72,5 @@ public class Deck {
 
     public void shuffle() {
         Collections.shuffle(cards);
-    }
-
-    public void removeCards(List<String> dealtCards) {
     }
 }
