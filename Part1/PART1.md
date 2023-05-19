@@ -7,7 +7,7 @@ No | ID       | Name                              | Task descriptions | Contribu
 1  |1211103123|AL ARSHAD BIN AL HANISHAM          |                   |
 2  |1211103216|SOFEA HAZREENA BINTI HASDI         |                   |
 3  |1211103196|NUR FARAHIYA AIDA BINTI ABDUL RAZAK|                   |
-4  |1211103373|MUHAMMAD ALIF BIN KHABALI          |                   |
+4  |1211103373|MUHAMMAD ALIF BIN KHABALI          | i made 1,2,3 & 5  |
 
 
 ## B. Feature Completion
