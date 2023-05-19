@@ -84,9 +84,7 @@ public class Main {
                 player1.removeCard(playedCard);
                 isFirstRound = false;
             }
-
         }
-
     }
 
     private static Player getNextPlayer(Player currentPlayer, Player player1, Player player2, Player player3,
