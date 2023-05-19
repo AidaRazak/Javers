@@ -10,7 +10,7 @@ public class Main {
         deck.shuffle();
 
         // Deal 7 cards to 4 players
-        System.out.println("\nTrick #1");
+        // System.out.println("\nTrick #1");
         List<List<String>> playerHands = deck.dealToPlayers(4, 7);
 
         // Create players and assign them their respective hands
@@ -24,10 +24,10 @@ public class Main {
         player4.setCards(playerHands.get(3));
 
         // Print the players' hands
-        player1.printCards();
-        player2.printCards();
-        player3.printCards();
-        player4.printCards();
+        // player1.printCards();
+        // player2.printCards();
+        // player3.printCards();
+        // player4.printCards();
 
         // Deal a card
         String card = deck.deal();
@@ -50,13 +50,14 @@ public class Main {
 
         while (true) {
             // Print the trick and the deck before each player's turn
-            if (!isFirstRound) {
-                System.out.println("\nTrick:");
-                player1.printCards();
-                player2.printCards();
-                player3.printCards();
-                player4.printCards();
-            }
+            // Check if it's the first round and remove the played card from the first
+            // player's hand
+
+            System.out.println("\nTrick#1");
+            player1.printCards();
+            player2.printCards();
+            player3.printCards();
+            player4.printCards();
 
             // Print the current center cards
             System.out.println("Center cards: " + deck.getCenterCards());
@@ -77,11 +78,18 @@ public class Main {
             // Handle the played card and update the game state
 
             currentPlayer = getNextPlayer(currentPlayer, player1, player2, player3, player4);
-            isFirstRound = false;
+
+            if (isFirstRound) {
+                player1.removeCard(playedCard);
+                isFirstRound = false;
+            }
+
         }
+
     }
 
-    private static Player getNextPlayer(Player currentPlayer, Player player1, Player player2, Player player3, Player player4) {
+    private static Player getNextPlayer(Player currentPlayer, Player player1, Player player2, Player player3,
+            Player player4) {
         if (currentPlayer.equals(player1))
             return player2;
         else if (currentPlayer.equals(player2))
