@@ -17,6 +17,14 @@ public class Player {
         return name;
     }
 
+    public List<String> getCards() {
+        return cards;
+    }
+
+    public void setCards(List<String> cards) {
+        this.cards = cards;
+    }
+
     public void addCard(String card) {
         cards.add(card);
     }
@@ -33,7 +41,7 @@ public class Player {
         System.out.println(name + "'s cards: " + cards);
     }
 
-    public String playCard(String leadSuit, String leadRank) {
+    public String playCard(String leadSuit, String leadRank, List<String> centerCards) {
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
@@ -41,8 +49,8 @@ public class Player {
 
             String card = scanner.nextLine();
 
-            if (isValidCard(card, leadSuit, leadRank)) {
-                cards.remove(card);
+            if (isValidCard(card, leadSuit, leadRank, centerCards)) {
+                cards.remove(card); // Remove the played card from the player's hand
                 return card;
             } else {
                 System.out.println("Invalid card. Try again.");
@@ -50,7 +58,7 @@ public class Player {
         }
     }
 
-    private boolean isValidCard(String card, String leadSuit, String leadRank) {
+    private boolean isValidCard(String card, String leadSuit, String leadRank, List<String> centerCards) {
         String suit = card.substring(0, 1);
         String rank = card.substring(1);
 
@@ -75,7 +83,7 @@ public class Player {
 
         if (rank == 'A' || rank == '5' || rank == '9' || rank == 'K') {
             return new Player("Player1");
-        } else if (rank == '2' || rank == '6' || rank == 'T') {
+        } else if (rank == '2' || rank == '6' || rank == 'x') {
             return new Player("Player2");
         } else if (rank == '3' || rank == '7' || rank == 'J') {
             return new Player("Player3");
@@ -91,4 +99,3 @@ public class Player {
         return name;
     }
 }
-
