@@ -94,7 +94,7 @@ public class Main {
             }
         }
 
-        return maxRankIndex % 4;
+        return maxRankIndex % 4;// since have 4 players 
     }
 
     public static int determineWinnerIndex(int[] trickScores) {
