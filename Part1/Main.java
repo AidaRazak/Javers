@@ -185,9 +185,9 @@ public class Main {
             return Integer.compare(rankIndex2, rankIndex1);
         } else {
             if (rank1.equals("A")) {
-                return 1; // Card 1 is an Ace, so Card 1 wins
+                return 1;
             } else if (rank2.equals("A")) {
-                return -1; // Card 2 is an Ace, so Card 2 wins
+                return -1; 
             } else {
                 return Integer.compare(suitIndex2, suitIndex1);
             }
