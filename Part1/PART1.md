@@ -8,10 +8,7 @@ No | ID         |           Name            |                     Task descripti
    |            |                           | -Implemented the Deck class to handle the initialization and shuffling of| 
    |            |                           |   the deck. Coded the iinitializeDeck() method to generate all the cards |
    |            |                           |   and the shuffleDeck() method to shuffle the cards. Ensured proper      |
-   |            |                           |   functioning and integrity of the deck.                                 |
-2  |            |                           |                                                                          |
-3  |            |                           |                                                                          |
-4  |            |                           |                                                                          |
+   |            |                           |   functioning and integrity of the deck.   
 
 
 1 1211103123
