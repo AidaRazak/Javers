@@ -4,45 +4,25 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Main {
-    
+    public static class RoundWinner {
+        private int playerIndex;
+        private String winningCard;
 
-        while (roundWinnerIndex == -1) {
-            int cardsPlayed = 0; // Number of cards played in the current trick
+        public RoundWinner(int playerIndex, String winningCard) {
+            this.playerIndex = playerIndex;
+            this.winningCard = winningCard;
+        }
 
-            while (cardsPlayed < numPlayers) {
-                String leadRank = centerCards.get(0).substring(0, 1);
-                String inputCard = "";
+        public int getPlayerIndex() {
+            return playerIndex;
+        }
 
-                do {
-                    System.out.println("\nTrick #" + trickNumber);
-                    System.out.println("Player1: " + playerHands.get(0));
-                    System.out.println("Player2: " + playerHands.get(1));
-                    System.out.println("Player3: " + playerHands.get(2));
-                    System.out.println("Player4: " + playerHands.get(3));
-                    System.out.println("Center: " + centerCards);
-                    System.out.println("Deck: " + deck);
-                    System.out.println("Score: Player1 = " + trickScores[0] + ", Player2 = " + trickScores[1] +
-                            ", Player3 = " + trickScores[2] + ", Player4 = " + trickScores[3]);
+        public String getWinningCard() {
+            return winningCard;
+        }
+    }
 
-                    if (currentPlayerIndex == 0) {
-                        System.out.print("Player1, enter a card: ");
-                        inputCard = scanner.nextLine();
-                    } else if (currentPlayerIndex == 1) {
-                        System.out.print("Player2, enter a card: ");
-                        inputCard = scanner.nextLine();
-                    } else if (currentPlayerIndex == 2) {
-                        System.out.print("Player3, enter a card: ");
-                        inputCard = scanner.nextLine();
-                    } else if (currentPlayerIndex == 3) {
-                        System.out.print("Player4, enter a card: ");
-                        inputCard = scanner.nextLine();
-                    }
-
-                    if (!playerHands.get(currentPlayerIndex).contains(inputCard)) {
-                        System.out.println("Invalid card. Please enter a card from your hand.");
-                    }
-                } while (!playerHands.get(currentPlayerIndex).contains(inputCard));
-
+      
                 playerHands.get(currentPlayerIndex).remove(inputCard);
                 centerCards.add(inputCard);
                 cardsPlayed++;
