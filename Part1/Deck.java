@@ -16,60 +16,58 @@ public class Deck {
         centerCards.add(card);
     }
 
+   
     private void initializeDeck() {
         cards = new ArrayList<>();
-        String[] ranks = {"A", "2", "3", "4", "5", "6", "7", "8", "9", "X", "J", "Q", "K"};
+        String[] ranks = {"A", "5", "9", "K", "2", "6", "X", "3", "7", "J", "4", "8", "Q"};
         String[] suits = {"s", "h", "d", "c"};
 
-        // Create the deck
         for (String suit : suits) {
             for (String rank : ranks) {
-                String card = rank + suit;
-                cards.add(card);
+                cards.add(rank + suit);
             }
         }
 
-        // Shuffle the deck
         Collections.shuffle(cards);
     }
 
-    public String deal() {
-        if (!cards.isEmpty()) {
-            return cards.remove(cards.size() - 1);
-        } else {
-            return null;
-        }
-    }
-    public List<List<String>> dealToPlayers(int numPlayers, int cardsPerPlayer) {
+    public List<List<String>> dealToPlayers(int numPlayers, int numCards) {
         List<List<String>> playerHands = new ArrayList<>();
-    
+
         for (int i = 0; i < numPlayers; i++) {
             List<String> hand = new ArrayList<>();
-    
-            // Deal cards to the player's hand
-            for (int j = 0; j < cardsPerPlayer; j++) {
-                String card = deal();
-                if (card != null) {
-                    hand.add(card);
-                }
+            for (int j = 0; j < numCards; j++) {
+                hand.add(cards.remove(cards.size() - 1));
             }
-    
             playerHands.add(hand);
         }
-    
+
         return playerHands;
-    }
-    
-    @Override
-    public String toString() {
-        return cards.toString();
     }
 
     public List<String> getCenterCards() {
         return centerCards;
     }
+    
+    public boolean isEmpty() {
+        return cards.isEmpty();
+    }
+    
+    public String drawCard() {
+        if (!cards.isEmpty()) {
+            return cards.remove(cards.size() - 1);
+        } else {
+            throw new IllegalStateException("The deck is empty.");
+        }
+    }
 
-    public void shuffle() {
-        Collections.shuffle(cards);
+   
+    
+
+    @Override
+    public String toString() {
+        return "Deck{" +
+                "cards=" + cards +
+                '}';
     }
 }
