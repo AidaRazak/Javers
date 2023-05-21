@@ -1,9 +1,9 @@
 No | ID         | Name                        | Task descriptions                                                        | Contribution %
--- | ---------- | ----                        | -----------------                                                        | --------------
-1  | 1221234567 |  AL ARSHAD BIN AL HANISHAM  |-recorded voice for video submission                                      | 28%
+-- | ---------- | ----                        | -----------------                                                        | :----------:
+1  | 1221234567 |  AL ARSHAD BIN AL HANISHAM  |-recorded voice for video submission                                      || 28%
   |            |                             ||-Implemented the Deck class to handle the initialization and shuffling of the deck. Coded the iinitializeDeck() method to generate all the cards and the shuffleDeck() method to shuffle the cards. Ensured proper functioning and integrity of the deckf |
-  |            |      ||-Developed the dealToPlayers() method in the Deck class to distribute cards among the players. Implemented the logic  to deal the specified number of cards to each player and ensured the distribution is fair and accurate.                      |
- |            |      ||- Added the updateCenterCards() method to the Deck class to update the center cards during gameplay.                         |                                                           
+  |            |      ||-Developed the dealToPlayers() method in the Deck class to distribute cards among the players. Implemented the logic  to deal the specified number of cards to each player and ensured the distribution is fair and accurate.                      ||
+ |            |      ||- Added the updateCenterCards() method to the Deck class to update the center cards during gameplay.                         ||                                                           
   |            |      ||-Implemented the logic to add cards played by the players to the center cards list, allowing easy tracking of the cards in the center                      |
  |            |      ||-Resolved any errors or issues related to the deck, such as empty deck handling, invalid card detection, and overalll consistency. Conducted thorough testing and debugging to ensure the deck functions correctly in various scenarios
 2  | 1211103216           |  SOFEA HAZREENA BINTI HASDI    |recorded voice for video submission                   |     28%                 |
