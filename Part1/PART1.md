@@ -3,10 +3,10 @@
 ## A. Member Contributions
 ## A. Member Contributions
 
-No | ID         | Name                        | Task descriptions                    | Contribution %
--- | ---------- | ----                        | -----------------                    | --------------
-1  | 1221234567 |  AL ARSHAD BIN AL HANISHAM  |-recorded voice for video submission  | 28%
-                                              |-Implemented the Deck class to handle the initialization and shuffling of
+No | ID         | Name                        | Task descriptions                                                        | Contribution %
+-- | ---------- | ----                        | -----------------                                                        | --------------
+1  | 1221234567 |  AL ARSHAD BIN AL HANISHAM  |-recorded voice for video submission                                      | 28%
+   |            |                             |-Implemented the Deck class to handle the initialization and shuffling of |
 2  |            |      |                   |
 3  |            |      |                   |
 4  |            |      |                   |
