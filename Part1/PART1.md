@@ -2,6 +2,17 @@
 
 ## A. Member Contributions
 ## A. Member Contributions
+
+No | ID         | Name | Task descriptions | Contribution %
+-- | ---------- | ---- | ----------------- | --------------
+1  | 1221234567 |      |                   |
+2  |            |      |                   |
+3  |            |      |                   |
+4  |            |      |                   |
+
+
+
+
 No | ID         |           Name            |                     Task descriptions                                    | Contribution %
 -- | ---------- | --------------------------| ------------------------------------------------------------------------ | --------------
 1  | 1211103123 | AL ARSHAD BIN AL HANISHAM | -recorded voice for video submission                                     |       28%
