@@ -17,17 +17,17 @@ SOFEA HAZREENA BINTI HASDI
 -finalised part 1 and managed submission
 - Implemented the determineFirstPlayerIndex() method in the Main class to calculate the initial player based on the lead card. Handled different card ranks and assigned the correct player index accordingly. Resolved any errors or inconsistencies in determining the first player
 -Developed the game loop in the Main class to manage the gameplay. Implemented the logic to iterate through the players, receive user input, validate the played card, and update the current player. Ensured smooth progression and accurate gameplay flow.
-- Coded the isValidCard() method in the Main class to validate the user's input card. Implemented the logic to check if the played card is valid based on the game rules, including the lead rank and the center card suit. Resolved any errors or issues related to card validation, ensuring accurate gameplay
-- Implemented the determineRoundWinner() method in the Main class to determine the winner of each round/trick. Developed the logic to compare the cards played by each player and identify the round winner. Resolved any errors or issues related to determining the round winner and updating the center cards.
+ - Coded the isValidCard() method in the Main class to validate the user's input card. Implemented the logic to check if the played card is valid based on the game rules, including the lead rank and the center card suit. Resolved any errors or issues related to card validation, ensuring accurate gameplay
+ - Implemented the determineRoundWinner() method in the Main class to determine the winner of each round/trick. Developed the logic to compare the cards played by each player and identify the round winner. Resolved any errors or issues related to determining the round winner and updating the center cards.
 28%
 
 3) 1211103194
 NUR FARAHIYA AIDA BINTI ABDUL RAZAK
- -recorded the video of output in the finl submission
- -Implemented the scoring system in the Main class to keep track of each player's score. Developed the logic to update the scores based on the outcomes of each round and display the scores at appropriate times. Ensured accurate scorekeeping and resolved any errors or inconsistencies.    
- -Implemented error handling and input validation in the Main class to handle user input and prevent invalid actions during gameplay. Coded the logic to handle incorrect card inputs, invalid commands, and unexpected user behavior. Ensured the game handles errors gracefully and provides clear feedback to the user.
- -Conducted thorough testing and debugging of the codebase, focusing on identifying and resolving any issues, bugs, or edge cases. Collaborated with other team members to address common problems and ensure the overall stability and reliability of the game.
- -Assisted in the overall design and architecture of the card game implementation. Collaborated with team members to define class structures, method signatures, and overall project organization. Contributed to discussions and provided valuable insights for the successful completion of the project
+ - recorded the video of output in the finl submission
+ - Implemented the scoring system in the Main class to keep track of each player's score. Developed the logic to update the scores based on the outcomes of each round and display the scores at appropriate times. Ensured accurate scorekeeping and resolved any errors or inconsistencies.    
+ - Implemented error handling and input validation in the Main class to handle user input and prevent invalid actions during gameplay. Coded the logic to handle incorrect card inputs, invalid commands, and unexpected user behavior. Ensured the game handles errors gracefully and provides clear feedback to the user.
+ - Conducted thorough testing and debugging of the codebase, focusing on identifying and resolving any issues, bugs, or edge cases. Collaborated with other team members to address common problems and ensure the overall stability and reliability of the game.
+ - Assisted in the overall design and architecture of the card game implementation. Collaborated with team members to define class structures, method signatures, and overall project organization. Contributed to discussions and provided valuable insights for the successful completion of the project
 28%
 
 4) 1211103373
