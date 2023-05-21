@@ -22,92 +22,175 @@ public class Main {
         }
     }
 
-      
+    public static void main(String[] args) {
+        Deck deck = new Deck();
+        List<List<String>> playerHands = deck.dealToPlayers(4, 7);
+        List<String> centerCards = deck.getCenterCards();
+
+        System.out.println("Player1's cards: " + playerHands.get(0));
+        System.out.println("Player2's cards: " + playerHands.get(1));
+        System.out.println("Player3's cards: " + playerHands.get(2));
+        System.out.println("Player4's cards: " + playerHands.get(3));
+        System.out.println("Center cards: " + centerCards);
+        System.out.println("Deck: " + deck);
+
+        Scanner scanner = new Scanner(System.in);
+        int currentPlayerIndex = determineFirstPlayerIndex(centerCards.get(0));
+        int numPlayers = playerHands.size();
+        int trickNumber = 1;
+
+        while (!playerHands.get(currentPlayerIndex).isEmpty()) {
+            String leadRank = centerCards.get(0).substring(0, 1);
+            String inputCard = "";
+
+            do {
+                System.out.println("\nTrick #" + trickNumber);
+                System.out.println("Player1: " + playerHands.get(0));
+                System.out.println("Player2: " + playerHands.get(1));
+                System.out.println("Player3: " + playerHands.get(2));
+                System.out.println("Player4: " + playerHands.get(3));
+                System.out.println("Center: " + centerCards);
+                System.out.println("Deck: " + deck);
+                System.out.println("Score: Player1 = 0 | Player2 = 0 | Player3 = 0 | Player4 = 0");
+                System.out.println("Turn: Player" + (currentPlayerIndex + 1));
+
+                System.out.print("> ");
+                inputCard = scanner.nextLine();
+
+                if (inputCard.equalsIgnoreCase("d")) {
+                    if (!deck.isEmpty()) {
+                        String drawnCard = deck.drawCard();
+                        playerHands.get(currentPlayerIndex).add(drawnCard);
+                        System.out.println("Player" + (currentPlayerIndex + 1) + " drew a card: " + drawnCard);
+                    } else {
+                        System.out.println("No more cards in the deck.");
+                    }
+                }
+            } while (!isValidCard(inputCard, playerHands.get(currentPlayerIndex), leadRank, centerCards.get(0)));
+
+            if (!inputCard.equalsIgnoreCase("d")) {
                 playerHands.get(currentPlayerIndex).remove(inputCard);
                 centerCards.add(inputCard);
-                cardsPlayed++;
-                currentPlayerIndex = (currentPlayerIndex + 1) % numPlayers;
-
-                if (cardsPlayed == numPlayers) {
-                    int winnerIndex = determineWinnerIndex(centerCards, leadRank);
-                    trickScores[winnerIndex]++;
-                    System.out.println("\n*** Player" + (winnerIndex + 1) + " wins Trick #" + trickNumber);
-                    trickNumber++;
-                    centerCards.clear();
-                }
             }
 
-            if (deck.isEmpty()) {
-                roundWinnerIndex = determineWinnerIndex(trickScores);
-                System.out.println("\n*** Round #" + roundNumber + " winner: Player" + (roundWinnerIndex + 1) +
-                        " with " + trickScores[roundWinnerIndex] + " tricks won ***");
-                roundNumber++;
+            currentPlayerIndex = (currentPlayerIndex + 1) % numPlayers;
+            if (currentPlayerIndex == 0) {
+                trickNumber++;
             }
-        }
-    }
 
-    public static int determineFirstPlayerIndex(String card) {
-        Map<String, Integer> rankToPlayerIndex = new HashMap<>();
-        rankToPlayerIndex.put("A", 0);
-        rankToPlayerIndex.put("2", 1);
-        rankToPlayerIndex.put("3", 2);
-        rankToPlayerIndex.put("4", 3);
-        rankToPlayerIndex.put("5", 0);
-        rankToPlayerIndex.put("6", 1);
-        rankToPlayerIndex.put("7", 2);
-        rankToPlayerIndex.put("8", 3);
-        rankToPlayerIndex.put("9", 0);
-        rankToPlayerIndex.put("10", 1);
-        rankToPlayerIndex.put("J", 2);
-        rankToPlayerIndex.put("Q", 3);
-        rankToPlayerIndex.put("K", 0);
+            if (centerCards.size() == 5) {
+                RoundWinner roundWinner = determineRoundWinner(centerCards, currentPlayerIndex, numPlayers);
+                System.out.println("Round " + (trickNumber-1) + " winner: Player" + (roundWinner.getPlayerIndex()+1 ));
+                currentPlayerIndex = roundWinner.getPlayerIndex();
+                centerCards.clear();
+                centerCards.add(roundWinner.getWinningCard());
 
-        String rank = card.substring(0, 1);
-        return rankToPlayerIndex.get(rank);
-    }
-
-    public static int determineWinnerIndex(List<String> cards, String leadRank) {
-        Map<String, Integer> rankToPlayerIndex = new HashMap<>();
-        rankToPlayerIndex.put("A", 0);
-        rankToPlayerIndex.put("2", 1);
-        rankToPlayerIndex.put("3", 2);
-        rankToPlayerIndex.put("4", 3);
-        rankToPlayerIndex.put("5", 0);
-        rankToPlayerIndex.put("6", 1);
-        rankToPlayerIndex.put("7", 2);
-        rankToPlayerIndex.put("8", 3);
-        rankToPlayerIndex.put("9", 0);
-        rankToPlayerIndex.put("10", 1);
-        rankToPlayerIndex.put("J", 2);
-        rankToPlayerIndex.put("Q", 3);
-        rankToPlayerIndex.put("K", 0);
-
-        int maxRankIndex = -1;
-        int maxRankValue = -1;
-
-        for (int i = 0; i < cards.size(); i++) {
-            String card = cards.get(i);
-            String rank = card.substring(0, 1);
-            if (rank.equals(leadRank) && rankToPlayerIndex.get(rank) > maxRankValue) {
-                maxRankIndex = i;
-                maxRankValue = rankToPlayerIndex.get(rank);
+                // Prompt for user input before starting the next round
+                System.out.print("Press any key to start the next round...");
+                scanner.nextLine();
             }
         }
 
-        return maxRankIndex % 4;// since have 4 players 
+        System.out.println("\nGame over!");
     }
 
-    public static int determineWinnerIndex(int[] trickScores) {
-        int maxScore = -1;
-        int winnerIndex = -1;
+    private static int determineFirstPlayerIndex(String leadCard) {
+        char rank = leadCard.charAt(0);
 
-        for (int i = 0; i < trickScores.length; i++) {
-            if (trickScores[i] > maxScore) {
-                maxScore = trickScores[i];
-                winnerIndex = i;
+        if (rank == 'A' || rank == '5' || rank == '9' || rank == 'K') {
+            return 0;
+        } else if (rank == '2' || rank == '6' || rank == 'X') {
+            return 1;
+        } else if (rank == '3' || rank == '7' || rank == 'J') {
+            return 2;
+        } else if (rank == '4' || rank == '8' || rank == 'Q') {
+            return 3;
+        } else {
+            throw new IllegalArgumentException("Invalid lead card: " + leadCard);
+        }
+    }
+
+    private static boolean isValidCard(String card, List<String> hand, String leadRank, String centerCard) {
+        if (!hand.contains(card)) {
+            System.out.println("Invalid card. Try again.");
+            return false;
+        }
+
+        String cardRank = card.substring(0, 1);
+        String cardSuit = card.substring(1);
+
+        String centerRank = centerCard.substring(0, 1);
+        String centerSuit = centerCard.substring(1);
+
+        if (!cardRank.equals(centerRank) && !cardSuit.equals(centerSuit)) {
+            System.out.println("Invalid card. Must play a card of the lead rank: " + centerRank +
+                    " or same suit: " + centerSuit);
+            return false;
+        }
+
+        return true;
+    }
+
+    private static RoundWinner determineRoundWinner(List<String> centerCards, int startingPlayerIndex, int numPlayers) {
+        int winningPlayerIndex = -1;
+        String winningCard = null;
+
+        for (int i = 0; i < numPlayers; i++) {
+            int currentIndex = (startingPlayerIndex + i) % numPlayers;
+            String currentCard = centerCards.get(currentIndex);
+
+            if (winningCard == null || compareCards(currentCard, winningCard) > 0) 
+            {
+                winningPlayerIndex = currentIndex;
+                winningCard = currentCard;
             }
         }
 
-        return winnerIndex;
+        return new RoundWinner(winningPlayerIndex, winningCard);
+    }
+
+    private static int compareCards(String card1, String card2) {
+        String rank1 = card1.substring(0, 1);
+        String suit1 = card1.substring(1);
+        String rank2 = card2.substring(0, 1);
+        String suit2 = card2.substring(1);
+    
+        String[] ranks = {"A", "K", "Q", "J", "X", "9", "8", "7", "6", "5", "4", "3", "2"};
+        String[] suits = {"c", "d", "h", "s"};
+    
+        int rankIndex1 = -1;
+        int rankIndex2 = -1;
+        int suitIndex1 = -1;
+        int suitIndex2 = -1;
+    
+        for (int i = 0; i < ranks.length; i++) {
+            if (ranks[i].equals(rank1)) {
+                rankIndex1 = i;
+            }
+            if (ranks[i].equals(rank2)) {
+                rankIndex2 = i;
+            }
+        }
+    
+        for (int i = 0; i < suits.length; i++) {
+            if (suits[i].equals(suit1)) {
+                suitIndex1 = i;
+            }
+            if (suits[i].equals(suit2)) {
+                suitIndex2 = i;
+            }
+        }
+    
+        if (rankIndex1 != rankIndex2) {
+            return Integer.compare(rankIndex2, rankIndex1);
+        } else {
+            if (rank1.equals("A")) {
+                return 1; // Card 1 is an Ace, so Card 1 wins
+            } else if (rank2.equals("A")) {
+                return -1; // Card 2 is an Ace, so Card 2 wins
+            } else {
+                return Integer.compare(suitIndex2, suitIndex1);
+            }
+        }
     }
 }
