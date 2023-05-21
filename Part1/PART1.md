@@ -23,11 +23,11 @@ SOFEA HAZREENA BINTI HASDI
 
 3) 1211103194
 NUR FARAHIYA AIDA BINTI ABDUL RAZAK
--recorded the video of output in the finl submission
--Implemented the scoring system in the Main class to keep track of each player's score. Developed the logic to update the scores based on the outcomes of each round and display the scores at appropriate times. Ensured accurate scorekeeping and resolved any errors or inconsistencies.    
--Implemented error handling and input validation in the Main class to handle user input and prevent invalid actions during gameplay. Coded the logic to handle incorrect card inputs, invalid commands, and unexpected user behavior. Ensured the game handles errors gracefully and provides clear feedback to the user.
-Conducted thorough testing and debugging of the codebase, focusing on identifying and resolving any issues, bugs, or edge cases. Collaborated with other team members to address common problems and ensure the overall stability and reliability of the game.
-Assisted in the overall design and architecture of the card game implementation. Collaborated with team members to define class structures, method signatures, and overall project organization. Contributed to discussions and provided valuable insights for the successful completion of the project
+ -recorded the video of output in the finl submission
+ -Implemented the scoring system in the Main class to keep track of each player's score. Developed the logic to update the scores based on the outcomes of each round and display the scores at appropriate times. Ensured accurate scorekeeping and resolved any errors or inconsistencies.    
+ -Implemented error handling and input validation in the Main class to handle user input and prevent invalid actions during gameplay. Coded the logic to handle incorrect card inputs, invalid commands, and unexpected user behavior. Ensured the game handles errors gracefully and provides clear feedback to the user.
+ -Conducted thorough testing and debugging of the codebase, focusing on identifying and resolving any issues, bugs, or edge cases. Collaborated with other team members to address common problems and ensure the overall stability and reliability of the game.
+ -Assisted in the overall design and architecture of the card game implementation. Collaborated with team members to define class structures, method signatures, and overall project organization. Contributed to discussions and provided valuable insights for the successful completion of the project
 28%
 
 4) 1211103373
