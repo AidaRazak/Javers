@@ -19,7 +19,7 @@ No | ID         | Name                        | Task descriptions               
   |            |      |                 |Conducted thorough testing and debugging of the codebase, focusing on identifying and resolving any issues, bugs, or edge cases. Collaborated with other team members to address common problems and ensure the overall stability and reliability of the game.   
   |            |      |    | Assisted in the overall design and architecture of the card game implementation. Collaborated with team members to define class structures, method signatures, and overall project organization. Contributed to discussions and provided valuable insights for the successful completion of the project                
 4  |   1211103373         |   MUHAMMAD ALIF BIN KHABALI   |Developed the dealToPlayers() method in the Deck class to distribute cards among the players. Implemented the logic to deal 7 cards to each player, ensuring a fair and equal distribution of cards. Collaborated with other team members to integrate the method into the gameplay flow.                  | 16%
- |            |      |Implemented the Deck class to handle the initialization and shuffling of the deck. Coded the initializeDeck() method to generate all the cards and the shuffleDeck() method to shuffle the cards. Ensured proper functioning and integrity of the dec                  |
+ |            |      ||Implemented the Deck class to handle the initialization and shuffling of the deck. Coded the initializeDeck() method to generate all the cards and the shuffleDeck() method to shuffle the cards. Ensured proper functioning and integrity of the dec                  |
 
 
 
