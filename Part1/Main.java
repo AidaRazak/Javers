@@ -4,25 +4,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) {
-        Deck deck = new Deck();
-        List<List<String>> playerHands = deck.dealToPlayers(4, 6);
-        List<String> centerCards = deck.getCenterCards();
-
-        System.out.println("Player1's cards: " + playerHands.get(0));
-        System.out.println("Player2's cards: " + playerHands.get(1));
-        System.out.println("Player3's cards: " + playerHands.get(2));
-        System.out.println("Player4's cards: " + playerHands.get(3));
-        System.out.println("Center cards: " + centerCards);
-        System.out.println("Deck: " + deck);
-
-        Scanner scanner = new Scanner(System.in);
-        int currentPlayerIndex = determineFirstPlayerIndex(centerCards.get(0));
-        int numPlayers = playerHands.size();
-        int trickNumber = 1;
-        int[] trickScores = new int[numPlayers];
-        int roundWinnerIndex = -1;
-        int roundNumber = 1;
+    
 
         while (roundWinnerIndex == -1) {
             int cardsPlayed = 0; // Number of cards played in the current trick
