@@ -1,7 +1,20 @@
 # Part 1
 
 ## A. Member Contributions
+## A. Member Contributions
+No | ID         |           Name            |                     Task descriptions                                    | Contribution %
+-- | ---------- | --------------------------| ------------------------------------------------------------------------ | --------------
+1  | 1211103123 | AL ARSHAD BIN AL HANISHAM | -recorded voice for video submission                                     |       28%
+   |            |                           | -Implemented the Deck class to handle the initialization and shuffling of| 
+   |            |                           |   the deck. Coded the iinitializeDeck() method to generate all the cards |
+   |            |                           |   and the shuffleDeck() method to shuffle the cards. Ensured proper      |
+   |            |                           |   functioning and integrity of the deck.                                 |
+2  |            |                           |                                                                          |
+3  |            |                           |                                                                          |
+4  |            |                           |                                                                          |
 
+
+1 1211103123
 1) 1211103123
 AL ARSHAD BIN AL HANISHAM   
  - recorded voice for video submission
