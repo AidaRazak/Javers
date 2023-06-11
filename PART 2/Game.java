@@ -1,10 +1,20 @@
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
-public class Game {
+//import javax.smartcardio.Card;
+
+//import javax.smartcardio.Card;
+
+public class Game implements Serializable {
     private Deck deck;
     private Player[] players;
     private Card leadCard;
@@ -31,7 +41,7 @@ public class Game {
     }
 
     private void dealCards() {
-        for (int i = 0; i < 7; i++) {
+        for (int i = 0; i < 2; i++) {
             for (Player player : players) {
                 Card card = deck.drawCard();
                 player.drawCard(card);
@@ -77,115 +87,93 @@ public class Game {
 
     private int cardsPlayed = 0;
 
-   private void playGame() {
-    int trickNumber = 1;
-    int cardsPlayed = 0;
-    int[] cardsLeft = new int[players.length]; // Initialize cardsLeft array
+    private void playGame() {
+        int trickNumber = 1;
+        int cardsPlayed = 0;
+        int[] scores = new int[players.length]; // Initialize scores array
 
-    // Initialize cardsLeft with the initial number of cards in each player's hand
-    for (int i = 0; i < players.length; i++) {
-        cardsLeft[i] = players[i].getHand().size();
-    }
+        while (!isGameOver()) {
+            Player currentPlayer = players[currentPlayerIndex];
+            System.out.println("Trick #" + trickNumber);
+            printPlayerHands();
+            printCenterCards();
+            printDeck();
 
-    while (!isGameOver()) {
-        Player currentPlayer = players[currentPlayerIndex];
-        System.out.println("Trick #" + trickNumber);
-        printPlayerHands();
-        printCenterCards();
-        printDeck();
+            System.out.println("Turn: Player" + (currentPlayerIndex + 1));
 
-        System.out.println("Turn: Player" + (currentPlayerIndex + 1));
-
-        // Print the score board after each turn
-        printScoreBoard();
-
-        Card playedCard = getValidCardFromPlayer(currentPlayer);
-
-        if (playedCard != null) {
-            System.out.println("Player" + (currentPlayerIndex + 1) + " plays: " + playedCard.toString());
-            centerCards.add(playedCard);
-            currentPlayer.removeCard(playedCard);
-            cardsPlayed++;
-            cardsLeft[currentPlayerIndex]--; // Update cardsLeft for the current player
-
-            if (cardsLeft[currentPlayerIndex] == 0) {
-                // Calculate scores at the end of the round when a player has no cards left
-                for (int i = 0; i < players.length; i++) {
-                    scores[i] = calculateRoundScore(i);
+            // Print the updated score board
+            System.out.print("Score: ");
+            for (int i = 0; i < scores.length; i++) {
+                System.out.print("Player" + (i + 1) + " = " + scores[0]);
+                if (i < scores.length - 1) {
+                    System.out.print(" | ");
                 }
-
-                // Print the scores after the round
-                System.out.println("Scores after Round #" + trickNumber);
-                printScoreBoard();
-
-                // Reset cardsLeft for the next round
-                for (int i = 0; i < players.length; i++) {
-                    cardsLeft[i] = players[i].getHand().size();
-                }
-
-                // Increment the trick number
-                trickNumber++;
             }
-        } else {
-            System.out.println("Player" + (currentPlayerIndex + 1) + " passed their turn.");
-        }
+            System.out.println();
 
-        currentPlayerIndex = (currentPlayerIndex + 1) % players.length;
+            Card playedCard = getValidCardFromPlayer(currentPlayer);
 
-        if (cardsPlayed == players.length) {
-            int winnerIndex = determineWinner(centerCards, trickNumber);
-            System.out.println("*** Player" + (winnerIndex + 1) + " wins Trick #" + trickNumber + " ***");
-            currentPlayerIndex = winnerIndex;
-            centerCards.clear();
-            cardsPlayed = 0;
-
-            Player winner = players[winnerIndex];
-            if (trickNumber > 1) {
-                promptWinnerForLeadCard(winner);
+            if (playedCard != null) {
+                System.out.println("Player" + (currentPlayerIndex + 1) + " plays: " + playedCard.toString());
+                centerCards.add(playedCard);
+                currentPlayer.removeCard(playedCard);
+                cardsPlayed++;
+            } else {
+                System.out.println("Player" + (currentPlayerIndex + 1) + " passed their turn.");
                 cardsPlayed++;
             }
+
+            currentPlayerIndex = (currentPlayerIndex + 1) % players.length;
+
+            if (cardsPlayed == players.length) {
+                int winnerIndex = determineWinner(centerCards, trickNumber);
+                System.out.println("*** Player" + (winnerIndex + 1) + " wins Trick #" + trickNumber + " ***");
+                trickNumber++;
+                currentPlayerIndex = winnerIndex;
+                centerCards.clear();
+                cardsPlayed = 0;
+
+                Player winner = players[winnerIndex];
+                if (trickNumber > 1) {
+                    promptWinnerForLeadCard(winner);
+                    cardsPlayed++;
+                }
+                //scores[winnerIndex] += 1; // Increment the score for the winner
+
+            }
+
+            // Check if a player has finished all their cards after the trick is over
+            for (int i = 0; i < players.length; i++) {
+                Player player = players[i];
+                if (player.getHand().isEmpty()) {
+                    System.out.println("Player" + (i + 1) + " has finished all their cards!");
+
+                    // Calculate the round score for the player
+                    int roundScore = calculateRoundScore(i);
+                    System.out.println("Round Score for Player" + (i + 1) + ": " + roundScore);
+                    scores[i] += roundScore; // Update the player's total score
+
+                    System.out.println();
+                    int winnerIndex = determineGameWinner(scores);
+                    System.out.println("Game over! Player" + (i + 1) + " wins the game!");
+                    System.out.println();
+                }
+            }
         }
-    }
-    // Print the final score board at the end of the game
-    printScoreBoard();
+    
+
+System.out.print("Score: ");
+for (int i = 0; i < players.length; i++) {
+    Player player = players[i];
+    int remainingPoints = calculateRoundScore(i);
+    System.out.print("Player" + (i + 1) + " = " + remainingPoints);
+    if (i < scores.length - 1) {
+        System.out.print(" | ");
+    } 
 }
+System.out.println();
 
-private int calculateRoundScore(int playerIndex) {
-    int score = 0;
-    Map<String, Integer> rankToValue = new LinkedHashMap<>();
-    rankToValue.put("A", 1); // Make Ace the highest
-    rankToValue.put("K", 10);
-    rankToValue.put("Q", 10);
-    rankToValue.put("J", 10);
-    rankToValue.put("X", 10); // Assuming X is a ten
-    rankToValue.put("9", 9);
-    rankToValue.put("8", 8);
-    rankToValue.put("7", 7);
-    rankToValue.put("6", 6);
-    rankToValue.put("5", 5);
-    rankToValue.put("4", 4);
-    rankToValue.put("3", 3);
-    rankToValue.put("2", 2);
-
-    for (Card card : players[playerIndex].getHand()) {
-        score += rankToValue.get(card.getRank());
     }
-
-    return score;
-}
-
-private void printScoreBoard() {
-    System.out.print("Score: ");
-    for (int i = 0; i < scores.length; i++) {
-        System.out.print("Player" + (i + 1) + " = " + scores[i]);
-        if (i < scores.length - 1) {
-            System.out.print(" | ");
-        }
-    }
-    System.out.println();
-}
-
-
 
     private int determineWinner(List<Card> centerCards, int trickNumber) {
         int winningCardIndex = -1;
@@ -258,7 +246,8 @@ private void printScoreBoard() {
         boolean isValidCard = false;
 
         while (!isValidCard) {
-            System.out.print("Choose a card to play (or 'd' to draw a card, 'p' to pass your turn): ");
+            System.out.print(
+                    "Choose a card to play (or 'd' to draw a card, 'p' to pass your turn , 's' to save your progress): ");
             String input = scanner.nextLine().trim().toUpperCase();
 
             if (input.equals("D")) {
@@ -273,7 +262,16 @@ private void printScoreBoard() {
                 }
             } else if (input.equals("P")) {
                 System.out.println("You passed your turn.");
+                cardsPlayed++;
                 break;
+            }
+
+            else if (input.equals("S")) {
+                System.out.println("Enter the name of the save file: ");
+                String fileName = scanner.nextLine();
+                saveGame(fileName);
+                System.out.println("Game saved successfully!");
+
             }
 
             for (Card card : player.getHand()) {
@@ -287,10 +285,6 @@ private void printScoreBoard() {
                 }
             }
 
-            if (!isValidCard) {
-                System.out.println(
-                        "Invalid card! Choose a card with the same suit or rank as the center card, 'd' to draw a card, or 'p' to pass your turn.");
-            }
         }
 
         return playedCard;
@@ -313,15 +307,103 @@ private void printScoreBoard() {
 
     private boolean isGameOver() {
         for (Player player : players) {
-            if (!player.getHand().isEmpty()) {
-                return false;
+            if (player.getHand().isEmpty()) {
+                return true;
+
             }
         }
-        return true;
+        return false;
+    }
+
+    private int determineGameWinner(int[] scores) {
+        int minScore = scores[0];
+        int winnerIndex = 0;
+
+        for (int i = 1; i < scores.length; i++) {
+            if (scores[i] < minScore) {
+                minScore = scores[i];
+                winnerIndex = i;
+            }
+        }
+
+        return winnerIndex;
+    }
+
+    private int calculateRoundScore(int playerIndex) {
+        int score = 0;
+        Map<String, Integer> rankToValue = new LinkedHashMap<>();
+        rankToValue.put("A", 1); // Make Ace the highest
+        rankToValue.put("K", 10);
+        rankToValue.put("Q", 10);
+        rankToValue.put("J", 10);
+        rankToValue.put("X", 10); // Assuming X is a ten
+        rankToValue.put("9", 9);
+        rankToValue.put("8", 8);
+        rankToValue.put("7", 7);
+        rankToValue.put("6", 6);
+        rankToValue.put("5", 5);
+        rankToValue.put("4", 4);
+        rankToValue.put("3", 3);
+        rankToValue.put("2", 2);
+
+        for (Card card : players[playerIndex].getHand()) {
+            score += rankToValue.get(card.getRank());
+        }
+
+        return score;
+    }
+
+    public void saveGame(String fileName) {
+        try (ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(fileName))) {
+            outputStream.writeObject(this);
+        } catch (IOException e) {
+            System.out.println("Error saving the game: " + e.getMessage());
+        }
+    }
+
+    public static Game loadGame(String fileName) {
+        Game game = null;
+        try (ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(fileName))) {
+            game = (Game) inputStream.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println("Error loading the game: " + e.getMessage());
+        }
+        return game;
     }
 
     public static void main(String[] args) {
-        Game game = new Game();
-        game.startGame();
+        Scanner scanner = new Scanner(System.in);
+        Game game = null;
+
+        System.out.println("Welcome to Go Boom!");
+
+        while (game == null) {
+            System.out.println("Please select an option:");
+            System.out.println("1. Start a new game");
+            System.out.println("2. Load a saved game");
+
+            int choice = scanner.nextInt();
+            scanner.nextLine(); // Consume newline character
+
+            switch (choice) {
+                case 1:
+                    System.out.println("Starting a new game...");
+                    game = new Game();
+                    game.startGame();
+                    break;
+                case 2:
+                    System.out.println("Enter the name of the save file: ");
+                    String fileName = scanner.nextLine();
+                    game = Game.loadGame(fileName);
+                    if (game != null) {
+                        game.playGame();
+                    }
+                    break;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+            }
+        }
+
+        scanner.close();
     }
 }
