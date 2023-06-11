@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
+
 import java.io.Serializable;
 
 public class Player implements Serializable {
@@ -37,7 +38,7 @@ public class Player implements Serializable {
         }
         return false;
     }
-    
+
     public boolean hasValidCard(Card centerCard) {
         for (Card card : hand) {
             if (card.getSuit().equals(centerCard.getSuit()) || card.getRank().equals(centerCard.getRank())) {
@@ -46,6 +47,7 @@ public class Player implements Serializable {
         }
         return false;
     }
+
 
     @Override
     public String toString() {
