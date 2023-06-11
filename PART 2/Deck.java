@@ -3,71 +3,53 @@ import java.util.Collections;
 import java.util.List;
 
 public class Deck {
-    private List<String> cards;
-    private List<String> centerCards;
+    private List<Card> cards;
 
     public Deck() {
-        initializeDeck();
-        centerCards = new ArrayList<>();
-        centerCards.add(cards.remove(cards.size() - 1));
-    }
-
-    public void updateCenterCards(String card) {
-        centerCards.add(card);
-    }
-
-   
-    private void initializeDeck() {
         cards = new ArrayList<>();
-        String[] ranks = {"A", "5", "9", "K", "2", "6", "X", "3", "7", "J", "4", "8", "Q"};
-        String[] suits = {"s", "h", "d", "c"};
-
+        String[] suits = {"h", "d", "c", "s"};
+        String[] ranks = {"A", "2", "3", "4", "5", "6", "7", "8", "9", "X", "J", "Q", "K"};
         for (String suit : suits) {
             for (String rank : ranks) {
-                cards.add(rank + suit);
+                cards.add(new Card(suit, rank));
             }
         }
-
-        Collections.shuffle(cards);
+        shuffle();
     }
 
-    public List<List<String>> dealToPlayers(int numPlayers, int numCards) {
-        List<List<String>> playerHands = new ArrayList<>();
-
-        for (int i = 0; i < numPlayers; i++) {
-            List<String> hand = new ArrayList<>();
-            for (int j = 0; j < numCards; j++) {
-                hand.add(cards.remove(cards.size() - 1));
-            }
-            playerHands.add(hand);
-        }
-
-        return playerHands;
-    }
-
-    public List<String> getCenterCards() {
-        return centerCards;
-    }
-    
     public boolean isEmpty() {
         return cards.isEmpty();
     }
-    
-    public String drawCard() {
-        if (!cards.isEmpty()) {
-            return cards.remove(cards.size() - 1);
-        } else {
-            throw new IllegalStateException("The deck is empty.");
+
+    public Card drawCard() {
+        if (isEmpty()) {
+            return null; // or throw an exception indicating an empty deck
         }
+        return cards.remove(cards.size() - 1);
     }
 
-   
-    
+    public void resetDeck() {
+        cards.clear();
+        String[] suits = {"H", "D", "C", "S"};
+        String[] ranks = {"A", "2", "3", "4", "5", "6", "7", "8", "9", "X", "J", "Q", "K"};
+        for (String suit : suits) {
+            for (String rank : ranks) {
+                cards.add(new Card(suit, rank));
+            }
+        }
+        shuffle();
+    }
 
-    @Override
+    public void shuffle() {
+        Collections.shuffle(cards);
+    }
+
     public String toString() {
-        return "Deck{" +
-                "cards=" + cards +
-                '}';
+        StringBuilder sb = new StringBuilder();
+        for (Card card : cards) {
+            sb.append(card.toString()).append(" ");
+        }
+        return sb.toString();
     }
 }
+

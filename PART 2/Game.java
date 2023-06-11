@@ -11,6 +11,7 @@ public class Game {
     private ArrayList<Card> centerCards;
     private int currentPlayerIndex;
     private int[] scores;
+    private GUI gameGUI;
 
     public Game() {
         deck = new Deck();
@@ -20,6 +21,7 @@ public class Game {
         }
         centerCards = new ArrayList<>();
         scores = new int[4];
+       gameGUI = new GUI(this);
     }
 
     public void startGame() {
@@ -75,279 +77,150 @@ public class Game {
         }
     }
 
-   
-    
-
     private int cardsPlayed = 0;
 
     private void playGame() {
         int trickNumber = 1;
         int cardsPlayed = 0;
         int[] scores = new int[players.length]; // Initialize scores array
-    
+
         while (!isGameOver()) {
             Player currentPlayer = players[currentPlayerIndex];
             System.out.println("Trick #" + trickNumber);
             printPlayerHands();
             printCenterCards();
             printDeck();
-    
+
             System.out.println("Turn: Player" + (currentPlayerIndex + 1));
-    
+
             Card playedCard = getValidCardFromPlayer(currentPlayer);
-    
+
             if (playedCard != null) {
                 System.out.println("Player" + (currentPlayerIndex + 1) + " plays: " + playedCard.toString());
                 centerCards.add(playedCard);
                 currentPlayer.removeCard(playedCard);
                 cardsPlayed++;
             } else {
-                System.out.println("Player" + (currentPlayerIndex + 1) + " passed their turn.");
-                cardsPlayed++;
+                System.out.println("Player" + (currentPlayerIndex + 1) + " passes.");
             }
-    
+
             currentPlayerIndex = (currentPlayerIndex + 1) % players.length;
-    
-                   if (cardsPlayed == players.length) {
-            int winnerIndex = determineWinner(centerCards, trickNumber);
-            System.out.println("*** Player" + (winnerIndex + 1) + " wins Trick #" + trickNumber + " ***");
-            trickNumber++;
-            currentPlayerIndex = winnerIndex;
-            centerCards.clear();
-            cardsPlayed = 0;
 
-            Player winner = players[winnerIndex];
-            if (trickNumber > 1) {
-                promptWinnerForLeadCard(winner);
-                cardsPlayed++;
-            }
-            scores[winnerIndex] += 1; // Increment the score for the winner
-
-            // Print the updated score board
-            System.out.print("Score: ");
-            for (int i = 0; i < scores.length; i++) {
-                System.out.print("Player" + (i + 1) + " = " + scores[i]);
-                if (i < scores.length - 1) {
-                    System.out.print(" | ");
-                }
-            }
-            System.out.println();
-        }
-
-       // Check if a player has finished all their cards after the trick is over
-        for (int i = 0; i < players.length; i++) {
-            Player player = players[i];
-            if (player.getHand().isEmpty()) {
-                System.out.println("Player" + (i + 1) + " has finished all their cards!");
-
-                // Calculate the round score for the player
-                int roundScore = calculateRoundScore(i);
-                System.out.println("Round Score for Player" + (i + 1) + ": " + roundScore);
-                scores[i] += roundScore; // Update the player's total score
+            if (cardsPlayed == players.length) {
+                currentPlayerIndex = determineTrickWinner();
+                updateScores();
+                trickNumber++;
+                cardsPlayed = 0;
+                centerCards.clear();
             }
         }
+
+        printFinalScores();
     }
 
-    // Determine the winner of the game
-    int winnerIndex = determineGameWinner(scores);
-    System.out.println("Game over! Player" + (winnerIndex + 1) + " wins the game!");
-
-    // Print the final score board
-    System.out.print("Final Score: ");
-    for (int i = 0; i < scores.length; i++) {
-        System.out.print("Player" + (i + 1) + " = " + scores[i]);
-        if (i < scores.length - 1) {
-            System.out.print(" | ");
+    private Card getValidCardFromPlayer(Player player) {
+        List<Card> validCards = getValidCards(player);
+        if (validCards.isEmpty()) {
+            return null;
         }
-    }
-    System.out.println();
-}
 
-
-    
-
-
-    private int determineWinner(List<Card> centerCards, int trickNumber) {
-        int winningCardIndex = -1;
-        Card winningCard = null;
-    
-        // Find the index of the first card with matching suit and rank
-        for (int i = 0; i < centerCards.size(); i++) {
-            Card card = centerCards.get(i);
-            if (card.getSuit().equals(centerCards.get(0).getSuit()) && card.getRank().equals(centerCards.get(0).getRank())) {
-                winningCardIndex = i;
-                winningCard = card;
-                break;
-            }
-        }
-    
-        // Compare the remaining cards for their ranks
-        for (int i = 0; i < centerCards.size(); i++) {
-            Card card = centerCards.get(i);
-    
-            if (card != winningCard && (winningCard == null || Card.compareRanks(card, winningCard) > 0)) {
-                winningCard = card;
-                winningCardIndex = i;
-            }
-        }
-    
-        if (trickNumber != 1) {
-            return (currentPlayerIndex + winningCardIndex + 4) % players.length;
-        } else {
-            return (currentPlayerIndex + winningCardIndex + 3) % players.length;
-        }
-    }
-    
-    
-    
-    
-    
-    private void promptWinnerForLeadCard(Player winner) {
         Scanner scanner = new Scanner(System.in);
-        System.out.print("Player" + (currentPlayerIndex + 1) + ", choose a card to be the lead card for the next round: ");
-        String input = scanner.nextLine().trim().toUpperCase();
-    
-        if (input.isEmpty()) {
-            currentPlayerIndex = (currentPlayerIndex + 1) % players.length;
-            return;
-        }
-    
-        for (Card card : winner.getHand()) {
-            if (card.toString().equals(input)) {
-                if (centerCards.contains(card)) {
-                    System.out.println("The selected card is already in the center. Player" + (currentPlayerIndex + 1) + " does not need to play again.");
-                    currentPlayerIndex = (currentPlayerIndex + 1) % players.length;
-                    return;
-                }
-    
-                leadCard = card;
-                winner.removeCard(card);
-                centerCards.add(card);
-                currentPlayerIndex = (currentPlayerIndex + 1) % players.length;
-                
-                return;
-            }
-        }
-    
-        System.out.println("Invalid card! Choose a card from your hand.");
-        promptWinnerForLeadCard(winner); // Recursively ask for a valid card
-    }
-    
-   
-    
-    
+        while (true) {
+            System.out.println("Enter the index of the card you want to play (0-" + (validCards.size() - 1) + "): ");
+            int cardIndex = scanner.nextInt();
 
-   private Card getValidCardFromPlayer(Player player) {
-    Scanner scanner = new Scanner(System.in);
-    Card playedCard = null;
-    boolean isValidCard = false;
-
-    while (!isValidCard) {
-        System.out.print("Choose a card to play (or 'd' to draw a card, 'p' to pass your turn): ");
-        String input = scanner.nextLine().trim().toUpperCase();
-
-        if (input.equals("D")) {
-            if (!deck.isEmpty()) {
-                Card drawnCard = deck.drawCard();
-                player.drawCard(drawnCard);
-                System.out.println("You drew a card: " + drawnCard.toString());
-                System.out.println("Your updated hand: " + player.toString());
-                continue;
+            if (cardIndex >= 0 && cardIndex < validCards.size()) {
+                return validCards.get(cardIndex);
             } else {
-                System.out.println("No more cards in the deck.");
+                System.out.println("Invalid card index. Please try again.");
             }
-        } else if (input.equals("P")) {
-            System.out.println("You passed your turn.");
-            cardsPlayed++;
-            break;
+        }
+    }
+
+    private List<Card> getValidCards(Player player) {
+        List<Card> validCards = new ArrayList<>();
+        for (Card card : player.getHand()) {
+            if (isCardValid(card)) {
+                validCards.add(card);
+            }
+        }
+        return validCards;
+    }
+
+    private boolean isCardValid(Card card) {
+        if (centerCards.isEmpty()) {
+            return true;
         }
 
-        for (Card card : player.getHand()) {
-            if (card.getSuit().equals(centerCards.get(0).getSuit()) || card.getRank().equals(centerCards.get(0).getRank())) {
-                if (card.toString().equals(input)) {
-                    playedCard = card;
-                    isValidCard = true;
-                    break;
+        String leadSuit = leadCard.getSuit();
+        if (card.getSuit().equals(leadSuit)) {
+            return true;
+        }
+
+        for (Card centerCard : centerCards) {
+            if (card.getSuit().equals(centerCard.getSuit())) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private int determineTrickWinner() {
+        String leadSuit = leadCard.getSuit();
+        int highestRankIndex = -1;
+        int highestRankValue = -1;
+
+        for (int i = 0; i < centerCards.size(); i++) {
+            Card card = centerCards.get(i);
+            if (card.getSuit().equals(leadSuit)) {
+                int rankValue = card.getRankValue();
+                if (rankValue > highestRankValue) {
+                    highestRankIndex = i;
+                    highestRankValue = rankValue;
                 }
             }
         }
 
-        if (!isValidCard) {
-            System.out.println("Invalid card! Choose a card with the same suit or rank as the center card, 'd' to draw a card, or 'p' to pass your turn.");
-        }
+        return (currentPlayerIndex + highestRankIndex) % players.length;
     }
 
-    return playedCard;
-}
+    private void updateScores() {
+        int trickWinnerIndex = determineTrickWinner();
+        scores[trickWinnerIndex]++;
+        currentPlayerIndex = trickWinnerIndex;
+    }
 
-
-    private void printDeck() {
-        System.out.println("Deck: " + deck.toString());
+    private boolean isGameOver() {
+        for (int score : scores) {
+            if (score >= 10) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private void printPlayerHands() {
         for (int i = 0; i < players.length; i++) {
             Player player = players[i];
-            System.out.println("Player" + (i + 1) + ": " + player.toString());
+            System.out.println("Player" + (i + 1) + " hand: " + player.getHandAsString());
         }
     }
 
     private void printCenterCards() {
-        System.out.println("Center: " + centerCards.toString());
+        System.out.println("Center cards: " + centerCards.toString());
     }
 
-     private boolean isGameOver() {
-    for (Player player : players) {
-        if (player.getHand().isEmpty()) {
-            return true;
-            
+    private void printDeck() {
+        System.out.println("Remaining deck: " + deck.toString());
+    }
+
+    private void printFinalScores() {
+        System.out.println("Final scores:");
+        for (int i = 0; i < scores.length; i++) {
+            System.out.println("Player" + (i + 1) + ": " + scores[i]);
         }
     }
-    return false;
-}
-
-private int determineGameWinner(int[] scores) {
-    int minScore = scores[0];
-    int winnerIndex = 0;
-
-    for (int i = 1; i < scores.length; i++) {
-        if (scores[i] < minScore) {
-            minScore = scores[i];
-            winnerIndex = i;
-        }
-    }
-
-    return winnerIndex;
-}
-
-
-
-
- private int calculateRoundScore(int playerIndex) {
-        int score = 0;
-        Map<String, Integer> rankToValue = new LinkedHashMap<>();
-        rankToValue.put("A", 1); // Make Ace the highest
-        rankToValue.put("K", 10);
-        rankToValue.put("Q", 10);
-        rankToValue.put("J", 10);
-        rankToValue.put("X", 10); // Assuming X is a ten
-        rankToValue.put("9", 9);
-        rankToValue.put("8", 8);
-        rankToValue.put("7", 7);
-        rankToValue.put("6", 6);
-        rankToValue.put("5", 5);
-        rankToValue.put("4", 4);
-        rankToValue.put("3", 3);
-        rankToValue.put("2", 2);
-
-        for (Card card : players[playerIndex].getHand()) {
-            score += rankToValue.get(card.getRank());
-        }
-
-        return score;
-    }
-    
-    
 
     public static void main(String[] args) {
         Game game = new Game();
