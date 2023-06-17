@@ -3,16 +3,17 @@
 
 No | ID         | Name                        | Task descriptions                                                        | Contribution %
 -- | ---------- | ----                        | -----------------                                                        | :----------:
-1  | 1211103123 |  AL ARSHAD BIN AL HANISHAM  |...                                     |%
-  |            |                             ||... |
-  |            |                             ||...   |
- |            |      || ...                         |                                                           
-  |            |      ||...        |
- |            |      ||...
-2  | 1211103216           |  SOFEA HAZREENA BINTI HASDI    |...|     %                 |
-  |            |      ||... |                      |
-|            |     ||...|                      |
-  |           |      ||...   |                      |
+1  | 1211103123 |  AL ARSHAD BIN AL HANISHAM  |Recreated and reorganized the class files to implement better class design and data structures by creating the classes, Player, Game, Deck and Cards.                                      |25%
+  |            |                             ||Implemented the accurate way of calculating the winner of the trick and prompted the winner to choose the card to start the next round  |
+  |            |                             ||Added the functionality to save the game state to a file or database, allowing players to exit and resume the game later and Implemented the logic to restore the game state when resuming a game from a file or database   |
+ |            |      || Modified the determind winner condition to allow the winner of the trick to be calculated only when all the players have played a card using cardsplayed                         |                                                           
+  |            |      || Modified the pass command to be calculated that when player's pass their turn the winner is determined based on what cards are played       |
+ |            |      ||Added support for a GUI through gamemenu which uses the swing library
+  |            |      ||Made the GUI more visually appealing by adding confetti feature and a way to display a background image 
+2  | 1211103216           |  SOFEA HAZREENA BINTI HASDI    |Modified code to display the score board for each trick|     %                 |
+  |            |      ||Modified the code to makesure after one round it will prin t out the score for each player after one round|                      |
+|            |     ||Made the GUI more visually appealing by designing the background and help to make the button at the center                      |
+  |           |      ||Add the function of save button in the GUI and modify the code to allow user to click any button after the game start   |                      |
 |            |      ||  ...                |
 |            |      ||I...      |
 3  |  1211103194| NUR FARAHIYA AIDA BINTI ABDUL RAZAK     | ...    | %
