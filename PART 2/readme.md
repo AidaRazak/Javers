@@ -10,18 +10,18 @@ No | ID         | Name                        | Task descriptions               
   |            |      || Modified the pass command to be calculated that when player's pass their turn the winner is determined based on what cards are played       |
  |            |      ||Added support for a GUI through gamemenu which uses the swing library
   |            |      ||Made the GUI more visually appealing by adding confetti feature and a way to display a background image 
-2  | 1211103216           |  SOFEA HAZREENA BINTI HASDI    |Modified code to display the score board for each trick|     %                 |
-  |            |      ||Modified the code to makesure after one round it will prin t out the score for each player after one round|                      |
+2  | 1211103216           |  SOFEA HAZREENA BINTI HASDI    |Modified code to display the score board for each trick|     25%                 |
+  |            |      ||Modified the code to makesure after one round it will print out the score for each player after one round|                      |
 |            |     ||Made the GUI more visually appealing by designing the background and help to make the button at the center                      |
   |           |      ||Add the function of save button in the GUI and modify the code to allow user to click any button after the game start   |                      |
 |            |      ||  ...                |
 |            |      ||I...      |
-3  |  1211103194| NUR FARAHIYA AIDA BINTI ABDUL RAZAK     | ...    | %
-  |            |      |                |...
-  |            |      |                    |...
-  |            |      |                 | ...
-  |            |      |                 |...   
-  |            |      |    | ...                
+3  |  1211103194| NUR FARAHIYA AIDA BINTI ABDUL RAZAK     | Implemented the logic to finish a round of the game correctly, including calculating and displaying the score of each player.   |25 %
+  |            |      |                |Implemented the functionality for a player to draw cards from the deck until a playable card is available if they cannot follow suit or rank.
+  |            |      |                    |Implemented the logic to finish a round of the game correctly, including calculating and displaying the score of each player.
+  |            |      |                 |Implemented the getValidCardFromPlayer() method to handle user input for playing a card, drawing a card, passing a turn, saving the game, or exiting the game.
+  |            |      |                 |Implemented the loadGame() method to load the game state, including restore player hands, center cards, and scores.   
+  |            |      |    |Collaborated with other developers to ensure consistency between the GUI and console output and resolved any issues or conflicts that arose.                
 4  |   1211103373         |   MUHAMMAD ALIF BIN KHABALI   |...                | %
  |            |      ||...        |
 |             |       ||...        |                       
