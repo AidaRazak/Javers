@@ -12,11 +12,11 @@ No | ID         | Name                        | Task descriptions               
   |            |      ||Made the GUI more visually appealing by adding confetti feature and a way to display a background image 
 2  | 1211103216           |  SOFEA HAZREENA BINTI HASDI    |Modified the code to display the score board for each trick|     25%                 |
   |            |      ||Modified the code to ensure that after each round, it prints out the score for each player.|                      |
- |            |      ||Rearranged the code within the loop to ensure that the output is printed in the correct sequence and is readable.|                      |
-
+ |            |      ||Rearranged the code within the loop to ensure that the output is printed in the correct sequence and is readable.|                     |
 |            |     ||Made the GUI more visually appealing by designing the background and ensuring that the buttons are centered.                      |
-|            |     ||Implemented the logic for scoring based on suits and ranks, successfully printing out the correct remaining cards for each player.                      |             |           |      ||Added the functionality of a save button in the GUI and included features that allow the user to enter the name of the saved file. |                      |
-|            |      ||Implemented the background color setting for the button in the GUI.       |                    |
+|            |     ||Implemented the logic for scoring based on suits and ranks, successfully printing out the correct remaining cards for each player.                     |             
+|           |      ||Added the functionality of a save button in the GUI and included features that allow the user to enter the name of the saved file. |                      |
+|            |       ||Implemented the background color setting for the button in the GUI.       |                    |
 3  |  1211103194| NUR FARAHIYA AIDA BINTI ABDUL RAZAK     | Implemented the logic to restore the game state in GUI when resuming a game from a file or database.  |25 %
   |            |      |                |Implemented the functionality for a player to draw cards from the deck until a playable card is available if they cannot follow suit or rank.
   |            |      |                    |Implemented the logic to finish a round of the game correctly, including calculating and displaying the score of each player.
