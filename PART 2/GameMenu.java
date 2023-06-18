@@ -4,6 +4,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 
 public class GameMenu extends JFrame implements ActionListener {
     private JButton newGameButton;
@@ -17,6 +24,7 @@ public class GameMenu extends JFrame implements ActionListener {
 
     private boolean showConfetti;
     private Timer confettiTimer;
+    private Game game;
 
     public GameMenu() {
         setTitle("GO BOOM");
@@ -29,12 +37,7 @@ public class GameMenu extends JFrame implements ActionListener {
         setLocationRelativeTo(null);
         setVisible(true);
         loadBackgroundImage();
-
-        newGameButton.addActionListener(this);
-        resumeGameButton.addActionListener(this);
-        saveGameButton.addActionListener(this);
-        resetGameButton.addActionListener(this);
-        exitButton.addActionListener(this);
+        game = new Game();
 
         showConfetti = false;
         confettiTimer = new Timer(1000, new ActionListener() {
@@ -59,11 +62,18 @@ public class GameMenu extends JFrame implements ActionListener {
         resetGameButton = createButton("Reset Game");
         exitButton = createButton("Exit Game");
 
-        newGameButton.setBounds(300, 250, 200, 40); // Set the position and size of the button
-        resumeGameButton.setBounds(300, 300, 200, 40);
-        saveGameButton.setBounds(300, 350, 200, 40);
-        resetGameButton.setBounds(300, 400, 200, 40);
-        exitButton.setBounds(300, 450, 200, 40);
+        newGameButton.setBounds(300, 210, 200, 40); // Set the position and size of the button
+        resumeGameButton.setBounds(300, 260, 200, 40);
+        saveGameButton.setBounds(300, 310, 200, 40);
+        resetGameButton.setBounds(300, 360, 200, 40);
+        exitButton.setBounds(300, 410, 200, 40);
+
+        // Set the background color of each button
+        newGameButton.setBackground(Color.PINK);
+        resumeGameButton.setBackground(Color.PINK);
+        saveGameButton.setBackground(Color.PINK);
+        resetGameButton.setBackground(Color.PINK);
+        exitButton.setBackground(Color.PINK);
 
         contentPane.add(newGameButton);
         contentPane.add(resumeGameButton);
@@ -86,7 +96,7 @@ public class GameMenu extends JFrame implements ActionListener {
     }
 
     private void loadBackgroundImage() {
-        String imagePath = "C:\\Users\\User\\Desktop\\OOP game assignment\\Family_Game_Shelf_Go_Boom_card_game_cover.jpg";
+        String imagePath = "C:\\Users\\User\\Desktop\\OOP game assignment\\welcome.jpg";
         backgroundImage = new ImageIcon(imagePath);
         backgroundLabel = new JLabel(backgroundImage);
         backgroundLabel.setBounds(0, 0, getWidth(), getHeight());
@@ -100,7 +110,7 @@ public class GameMenu extends JFrame implements ActionListener {
         if (image != null) {
             Image scaledImage = image.getScaledInstance(getWidth(), getHeight(), Image.SCALE_SMOOTH);
             backgroundLabel.setIcon(new ImageIcon(scaledImage));
-            backgroundLabel.setBounds(0, 0, getWidth(), getHeight());
+            backgroundLabel.setBounds(-8, 0, getWidth(), getHeight());
         }
     }
 
@@ -133,38 +143,67 @@ public class GameMenu extends JFrame implements ActionListener {
         return new Color(r, g, b);
     }
 
-   @Override
-public void actionPerformed(ActionEvent e) {
-    if (e.getSource() == newGameButton) {
-        // Start a new game
-        Game game = new Game();
-        game.startGame();
-    } else if (e.getSource() == resumeGameButton) {
-        // Resume the previous game
-        // Implement your logic here to load the game state from a file or any other source
-        // and resume the game.
-        // For example:
-        // Game game = loadGameFromFile();
-        // game.playGame();
-        System.out.println("Resuming the previous game...");
-    } else if (e.getSource() == saveGameButton) {
-        // Save the current game state
-        // Implement your logic here to save the game state to a file or any other destination.
-        // For example:
-        // saveGameToFile(game);
-        System.out.println("Saving the current game state...");
-    } else if (e.getSource() == resetGameButton) {
-        // Reset the game
-        // Implement your logic here to reset the game state.
-        // For example:
-        // game.resetGame();
-        System.out.println("Resetting the game...");
-    } else if (e.getSource() == exitButton) {
-        // Exit the game
-        System.exit(0);
-    }
-}
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == newGameButton) {
+            // Start a new game
+            System.out.println("Starting new game...");
+            game.startGame();
+        } else if (e.getSource() == resumeGameButton) {
+            // Resume previous game
+            String fileName = JOptionPane.showInputDialog(null, "Enter the file name to load:");
+            if (fileName != null && !fileName.isEmpty()) {
+                // Load the specified file
+                try {
+                    FileInputStream fileInputStream = new FileInputStream(fileName);
+                    ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
+                    game = (Game) objectInputStream.readObject();
+                    objectInputStream.close();
+                    fileInputStream.close();
+                    game.gameCount++; // Increment gameNumber
+                    System.out.println("Game loaded from file: " + fileName);
+                    game.playGame(); // Start the loaded game
+                } catch (IOException | ClassNotFoundException ex) {
+                    System.out.println("Error loading the file: " + ex.getMessage());
+                }
+            } else {
+                // Start a new game
+                System.out.println("Starting new game...");
+            }
+        }
 
+        else if (e.getSource() == saveGameButton)
+
+        {
+            // Save the game
+            if (game != null) {
+                String fileName = JOptionPane.showInputDialog(null, "Enter the file name to save:");
+                if (fileName != null && !fileName.isEmpty()) {
+                    // Save the game to the specified file
+                    try {
+                        FileOutputStream fileOutputStream = new FileOutputStream(fileName);
+                        ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+                        objectOutputStream.writeObject(game);
+                        objectOutputStream.close();
+                        fileOutputStream.close();
+                        System.out.println("Game saved to file: " + fileName);
+                    } catch (IOException ex) {
+                        System.out.println("Error saving the game: " + ex.getMessage());
+                    }
+                }
+            } else {
+                System.out.println("No game to save.");
+            }
+        } else if (e.getSource() == resetGameButton) {
+            // Reset the game
+            System.out.println("Resetting game...");
+            game.playGame();
+        } else if (e.getSource() == exitButton) {
+            // Exit the game
+            System.out.println("Exiting game...");
+            System.exit(0);
+        }
+    }
 
     public static void main(String[] args) {
         try {
