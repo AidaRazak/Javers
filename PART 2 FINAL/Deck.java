@@ -24,7 +24,7 @@ public class Deck implements Serializable {
 
     public Card drawCard() {
         if (isEmpty()) {
-            return null; // or throw an exception indicating an empty deck
+            return null; 
         }
         return cards.remove(cards.size() - 1);
     }
