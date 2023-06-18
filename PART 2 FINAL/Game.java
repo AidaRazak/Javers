@@ -427,8 +427,7 @@ public class Game implements Serializable {
             System.out.println("2. Load a saved game");
 
             int choice = scanner.nextInt();
-            scanner.nextLine(); // Consume newline character
-
+            scanner.nextLine(); 
             switch (choice) {
                 case 1:
                     System.out.println("Starting a new game...");
