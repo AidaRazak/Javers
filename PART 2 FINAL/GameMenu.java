@@ -30,9 +30,9 @@ public class GameMenu extends JFrame implements ActionListener {
         setTitle("GO BOOM");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
-        setLayout(null); // Set layout manager to null for custom component positioning
+        setLayout(null); 
         initComponents();
-        setPreferredSize(new Dimension(800, 600)); // Set the preferred size of the JFrame
+        setPreferredSize(new Dimension(800, 600)); 
         pack();
         setLocationRelativeTo(null);
         setVisible(true);
@@ -62,13 +62,13 @@ public class GameMenu extends JFrame implements ActionListener {
         resetGameButton = createButton("Reset Game");
         exitButton = createButton("Exit Game");
 
-        newGameButton.setBounds(300, 210, 200, 40); // Set the position and size of the button
+        newGameButton.setBounds(300, 210, 200, 40); 
         resumeGameButton.setBounds(300, 260, 200, 40);
         saveGameButton.setBounds(300, 310, 200, 40);
         resetGameButton.setBounds(300, 360, 200, 40);
         exitButton.setBounds(300, 410, 200, 40);
 
-        // Set the background color of each button
+   
         newGameButton.setBackground(Color.PINK);
         resumeGameButton.setBackground(Color.PINK);
         saveGameButton.setBackground(Color.PINK);
@@ -160,14 +160,14 @@ public class GameMenu extends JFrame implements ActionListener {
                     game = (Game) objectInputStream.readObject();
                     objectInputStream.close();
                     fileInputStream.close();
-                    game.gameCount++; // Increment gameNumber
+                    game.gameCount++; 
                     System.out.println("Game loaded from file: " + fileName);
-                    game.playGame(); // Start the loaded game
+                    game.playGame(); 
                 } catch (IOException | ClassNotFoundException ex) {
                     System.out.println("Error loading the file: " + ex.getMessage());
                 }
             } else {
-                // Start a new game
+         
                 System.out.println("Starting new game...");
             }
         }
@@ -179,7 +179,7 @@ public class GameMenu extends JFrame implements ActionListener {
             if (game != null) {
                 String fileName = JOptionPane.showInputDialog(null, "Enter the file name to save:");
                 if (fileName != null && !fileName.isEmpty()) {
-                    // Save the game to the specified file
+                 
                     try {
                         FileOutputStream fileOutputStream = new FileOutputStream(fileName);
                         ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
@@ -195,11 +195,11 @@ public class GameMenu extends JFrame implements ActionListener {
                 System.out.println("No game to save.");
             }
         } else if (e.getSource() == resetGameButton) {
-            // Reset the game
+       
             System.out.println("Resetting game...");
             game.playGame();
         } else if (e.getSource() == exitButton) {
-            // Exit the game
+       
             System.out.println("Exiting game...");
             System.exit(0);
         }
