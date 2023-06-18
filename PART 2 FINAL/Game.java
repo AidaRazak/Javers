@@ -172,7 +172,7 @@ public class Game implements Serializable {
 
                     int roundScore = calculateRoundScore(i);
                     System.out.println("Round Score for Player" + (i + 1) + ": " + roundScore);
-                    scores[i] += roundScore; // Update the player's total score
+                    scores[i] += roundScore; 
 
                     System.out.println();
                     int winnerIndex = determineGameWinner(scores);
