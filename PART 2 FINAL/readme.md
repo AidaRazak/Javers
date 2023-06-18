@@ -23,9 +23,9 @@ No | ID         | Name                        | Task descriptions               
   |            |      |                 |Implemented the getValidCardFromPlayer() method to handle user input for playing a card, drawing a card, passing a turn, saving the game, or exiting the game.
   |            |      |                 |Implemented the loadGame() method to load the game state, including restore player hands, center cards, and scores.   
   |            |      |    |Collaborated with other developers to ensure consistency between the GUI and console output and resolved any issues or conflicts that arose.                
-4  |   1211103373         |   MUHAMMAD ALIF BIN KHABALI   |Implemeted the reset game after one round done                | %
- |            |      ||Modified the logic of saved game     |
-|             |       || Tried to create GUI playing mode using FXML      |                       
+4  |   1211103373         |   MUHAMMAD ALIF BIN KHABALI   |Implemented the reset game functionality after first round is completed               | %
+ |            |      ||Modified the logic of saving the game     |
+|             |       ||Attempted to create a GUI playing mode using FXML.     |                       
 
 ## B. Part 1 Feature Completion (Latest)
 
