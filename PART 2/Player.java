@@ -57,4 +57,8 @@ public class Player implements Serializable {
         }
         return sb.toString();
     }
+
+    public void clearHand() {
+        hand.clear();
+    }
 }
