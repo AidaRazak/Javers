@@ -16,7 +16,7 @@ No | ID         | Name                        | Task descriptions               
   |           |      ||Add the function of save button in the GUI and modify the code to allow user to click any button after the game start   |                      |
 |            |      ||  ...                |
 |            |      ||I...      |
-3  |  1211103194| NUR FARAHIYA AIDA BINTI ABDUL RAZAK     | Implemented the logic to finish a round of the game correctly, including calculating and displaying the score of each player.   |25 %
+3  |  1211103194| NUR FARAHIYA AIDA BINTI ABDUL RAZAK     | ...   |25 %
   |            |      |                |Implemented the functionality for a player to draw cards from the deck until a playable card is available if they cannot follow suit or rank.
   |            |      |                    |Implemented the logic to finish a round of the game correctly, including calculating and displaying the score of each player.
   |            |      |                 |Implemented the getValidCardFromPlayer() method to handle user input for playing a card, drawing a card, passing a turn, saving the game, or exiting the game.
