@@ -25,7 +25,8 @@ No | ID         | Name                        | Task descriptions               
   |            |      |    |Collaborated with other developers to ensure consistency between the GUI and console output and resolved any issues or conflicts that arose.                
 4  |   1211103373         |   MUHAMMAD ALIF BIN KHABALI   |Implemented the reset game functionality after first round is completed               | %
  |            |      ||Modified the logic of saving the game     |
-|             |       ||Attempted to create a GUI playing mode using FXML.     |                       
+|             |       ||Attempted to create a GUI playing mode using FXML.     |      
+|             |       |Fixed some minor bugs    |      
 
 ## B. Part 1 Feature Completion (Latest)
 
