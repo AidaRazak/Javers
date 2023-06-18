@@ -102,7 +102,7 @@ public class Game implements Serializable {
 
     currentPlayerIndex = 0;
 
-    // Reset trickNumber to 1
+  
     int trickNumber = 1;
 }
 
@@ -123,7 +123,7 @@ public class Game implements Serializable {
 
             System.out.println("Turn: Player" + (currentPlayerIndex + 1));
 
-            // Print the updated score board
+     
             System.out.print("Score: ");
             for (int i = 0; i < scores.length; i++) {
                 System.out.print("Player" + (i + 1) + " = " + scores[0]);
@@ -160,17 +160,16 @@ public class Game implements Serializable {
                     promptWinnerForLeadCard(winner);
                     cardsPlayed++;
                 }
-                //scores[winnerIndex] += 1; // Increment the score for the winner
+         
 
             }
 
-            // Check if a player has finished all their cards after the trick is over
+         
             for (int i = 0; i < players.length; i++) {
                 Player player = players[i];
                 if (player.getHand().isEmpty()) {
                     System.out.println("\nPlayer" + (i + 1) + " has finished all their cards!");
 
-                    // Calculate the round score for the player
                     int roundScore = calculateRoundScore(i);
                     System.out.println("Round Score for Player" + (i + 1) + ": " + roundScore);
                     scores[i] += roundScore; // Update the player's total score
@@ -193,13 +192,12 @@ public class Game implements Serializable {
                 } 
             }
 
-            // Ask if players want to reset the game
             System.out.println("\nDo you want to reset the game? (Y/N)");
             Scanner scanner = new Scanner(System.in);
             String resetInput = scanner.nextLine().trim().toUpperCase();
             if (resetInput.equals("Y")) {
-                resetGame(); // Reset the game
-                startGame(); // Start a new game
+                resetGame();
+                startGame(); 
             }
 
             System.out.println();
@@ -210,7 +208,7 @@ public class Game implements Serializable {
         int winningCardIndex = -1;
         Card winningCard = null;
 
-        // Find the index of the first card with matching suit and rank
+  
         for (int i = 0; i < centerCards.size(); i++) {
             Card card = centerCards.get(i);
             if (card.getSuit().equals(centerCards.get(0).getSuit())
@@ -221,7 +219,6 @@ public class Game implements Serializable {
             }
         }
 
-        // Compare the remaining cards for their ranks
         for (int i = 0; i < centerCards.size(); i++) {
             Card card = centerCards.get(i);
 
@@ -242,7 +239,7 @@ public class Game implements Serializable {
        
         System.out.println("Exiting the game...");
 
-        System.exit(0); // Terminate the program
+        System.exit(0); 
     }
 
     private void promptWinnerForLeadCard(Player winner) {
@@ -275,7 +272,7 @@ public class Game implements Serializable {
         }
 
         System.out.println("Invalid card! Choose a card from your hand.");
-        promptWinnerForLeadCard(winner); // Recursively ask for a valid card
+        promptWinnerForLeadCard(winner);
     }
 
     private Card getValidCardFromPlayer(Player player) {
@@ -377,11 +374,11 @@ public class Game implements Serializable {
     private int calculateRoundScore(int playerIndex) {
         int score = 0;
         Map<String, Integer> rankToValue = new LinkedHashMap<>();
-        rankToValue.put("A", 1); // Make Ace the highest
+        rankToValue.put("A", 1); 
         rankToValue.put("K", 10);
         rankToValue.put("Q", 10);
         rankToValue.put("J", 10);
-        rankToValue.put("X", 10); // Assuming X is a ten
+        rankToValue.put("X", 10); 
         rankToValue.put("9", 9);
         rankToValue.put("8", 8);
         rankToValue.put("7", 7);
