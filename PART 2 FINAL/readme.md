@@ -13,8 +13,8 @@ No | ID         | Name                        | Task descriptions               
 2  | 1211103216           |  SOFEA HAZREENA BINTI HASDI    |Modified code to display the score board for each trick|     25%                 |
   |            |      ||Modified the code to makesure after one round it will print out the score for each player after one round|                      |
 |            |     ||Made the GUI more visually appealing by designing the background and help to make the button at the center                      |
-  |           |      ||Add the function of save button in the GUI and modify the code to allow user to click any button after the game start   |                      |
-|            |      ||  ...                |
+  |           |      ||Add the function of save button in the GUI and start   |                      |
+|            |      ||Implemented the code to allow user to click any button after the game                |
 |            |      ||I...      |
 3  |  1211103194| NUR FARAHIYA AIDA BINTI ABDUL RAZAK     | Implemented the logic to restore the game state in GUI when resuming a game from a file or database.  |25 %
   |            |      |                |Implemented the functionality for a player to draw cards from the deck until a playable card is available if they cannot follow suit or rank.
