@@ -146,14 +146,14 @@ public class GameMenu extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == newGameButton) {
-            // Start a new game
+          
             System.out.println("Starting new game...");
             game.startGame();
         } else if (e.getSource() == resumeGameButton) {
-            // Resume previous game
+      
             String fileName = JOptionPane.showInputDialog(null, "Enter the file name to load:");
             if (fileName != null && !fileName.isEmpty()) {
-                // Load the specified file
+   
                 try {
                     FileInputStream fileInputStream = new FileInputStream(fileName);
                     ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
@@ -175,7 +175,7 @@ public class GameMenu extends JFrame implements ActionListener {
         else if (e.getSource() == saveGameButton)
 
         {
-            // Save the game
+     
             if (game != null) {
                 String fileName = JOptionPane.showInputDialog(null, "Enter the file name to save:");
                 if (fileName != null && !fileName.isEmpty()) {
