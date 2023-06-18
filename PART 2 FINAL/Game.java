@@ -407,7 +407,7 @@ public class Game implements Serializable {
     Game game = null;
     try (ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(fileName))) {
         game = (Game) inputStream.readObject();
-        game.gameCount++; // Increment gameNumber
+        game.gameCount++; 
     } catch (IOException | ClassNotFoundException e) {
         System.out.println("Error loading the game: " + e.getMessage());
     }
