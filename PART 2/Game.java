@@ -10,9 +10,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
-//import javax.smartcardio.Card;
-
-//import javax.smartcardio.Card;
 
 public class Game implements Serializable {
     private Deck deck;
@@ -21,6 +18,10 @@ public class Game implements Serializable {
     private ArrayList<Card> centerCards;
     private int currentPlayerIndex;
     private int[] scores;
+    static int gameCount = 0;
+    
+
+
 
     public Game() {
         deck = new Deck();
@@ -33,6 +34,7 @@ public class Game implements Serializable {
     }
 
     public void startGame() {
+        gameCount++;
         deck.resetDeck();
         deck.shuffle();
         dealCards();
@@ -41,7 +43,7 @@ public class Game implements Serializable {
     }
 
     private void dealCards() {
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < 7; i++) {
             for (Player player : players) {
                 Card card = deck.drawCard();
                 player.drawCard(card);
@@ -51,10 +53,10 @@ public class Game implements Serializable {
 
     private void decideFirstPlayer() {
         leadCard = deck.drawCard();
-        System.out.println("The first lead card is: " + leadCard.toString());
+        System.out.println("\nThe first lead card is: " + leadCard.toString());
         int firstPlayerIndex = determineFirstPlayerIndex(leadCard.getRank());
 
-        System.out.println("Player " + (firstPlayerIndex + 1) + " goes first.");
+        System.out.println("\nPlayer " + (firstPlayerIndex + 1) + " goes first.");
         Player firstPlayer = players[firstPlayerIndex];
         centerCards.add(leadCard);
         firstPlayer.removeCard(leadCard);
@@ -81,20 +83,40 @@ public class Game implements Serializable {
         if (rankToPlayerIndex.containsKey(leadRank)) {
             return rankToPlayerIndex.get(leadRank);
         } else {
-            throw new IllegalArgumentException("Invalid lead card rank: " + leadRank);
+            throw new IllegalArgumentException("\nInvalid lead card rank: " + leadRank);
         }
     }
 
     private int cardsPlayed = 0;
 
-    private void playGame() {
+    public void resetGame() {
+    for (Player player : players) {
+        player.clearHand();
+    }
+
+    centerCards.clear();
+
+    for (int i = 0; i < scores.length; i++) {
+        scores[i] = 0;
+    }
+
+    currentPlayerIndex = 0;
+
+    // Reset trickNumber to 1
+    int trickNumber = 1;
+}
+
+
+    public void playGame() {
+        System.out.println("\n----- Game #" + gameCount + " -----");
         int trickNumber = 1;
         int cardsPlayed = 0;
-        int[] scores = new int[players.length]; // Initialize scores array
+        int[] scores = new int[players.length];
+        
 
         while (!isGameOver()) {
             Player currentPlayer = players[currentPlayerIndex];
-            System.out.println("Trick #" + trickNumber);
+            System.out.println("\nTrick #" + trickNumber);
             printPlayerHands();
             printCenterCards();
             printDeck();
@@ -114,7 +136,7 @@ public class Game implements Serializable {
             Card playedCard = getValidCardFromPlayer(currentPlayer);
 
             if (playedCard != null) {
-                System.out.println("Player" + (currentPlayerIndex + 1) + " plays: " + playedCard.toString());
+                System.out.println("\nPlayer" + (currentPlayerIndex + 1) + " plays: " + playedCard.toString());
                 centerCards.add(playedCard);
                 currentPlayer.removeCard(playedCard);
                 cardsPlayed++;
@@ -146,7 +168,7 @@ public class Game implements Serializable {
             for (int i = 0; i < players.length; i++) {
                 Player player = players[i];
                 if (player.getHand().isEmpty()) {
-                    System.out.println("Player" + (i + 1) + " has finished all their cards!");
+                    System.out.println("\nPlayer" + (i + 1) + " has finished all their cards!");
 
                     // Calculate the round score for the player
                     int roundScore = calculateRoundScore(i);
@@ -155,23 +177,32 @@ public class Game implements Serializable {
 
                     System.out.println();
                     int winnerIndex = determineGameWinner(scores);
-                    System.out.println("Game over! Player" + (i + 1) + " wins the game!");
+                    System.out.println("\nGame over! Player" + (i + 1) + " wins the game!");
                     System.out.println();
                 }
             }
         }
     
+            System.out.print("Score: ");
+            for (int i = 0; i < players.length; i++) {
+                Player player = players[i];
+                int remainingPoints = calculateRoundScore(i);
+                System.out.print("Player" + (i + 1) + " = " + remainingPoints);
+                if (i < scores.length - 1) {
+                    System.out.print(" | ");
+                } 
+            }
 
-System.out.print("Score: ");
-for (int i = 0; i < players.length; i++) {
-    Player player = players[i];
-    int remainingPoints = calculateRoundScore(i);
-    System.out.print("Player" + (i + 1) + " = " + remainingPoints);
-    if (i < scores.length - 1) {
-        System.out.print(" | ");
-    } 
-}
-System.out.println();
+            // Ask if players want to reset the game
+            System.out.println("\nDo you want to reset the game? (Y/N)");
+            Scanner scanner = new Scanner(System.in);
+            String resetInput = scanner.nextLine().trim().toUpperCase();
+            if (resetInput.equals("Y")) {
+                resetGame(); // Reset the game
+                startGame(); // Start a new game
+            }
+
+            System.out.println();
 
     }
 
@@ -205,6 +236,13 @@ System.out.println();
         } else {
             return (currentPlayerIndex + winningCardIndex + 3) % players.length;
         }
+    }
+
+    private void exitGame() {
+       
+        System.out.println("Exiting the game...");
+
+        System.exit(0); // Terminate the program
     }
 
     private void promptWinnerForLeadCard(Player winner) {
@@ -247,14 +285,14 @@ System.out.println();
 
         while (!isValidCard) {
             System.out.print(
-                    "Choose a card to play (or 'd' to draw a card, 'p' to pass your turn , 's' to save your progress): ");
+                    "\nChoose a card to play (or 'd' to draw a card, 'p' to pass your turn, 's' to save your progress, 'e' exit): ");
             String input = scanner.nextLine().trim().toUpperCase();
 
             if (input.equals("D")) {
                 if (!deck.isEmpty()) {
                     Card drawnCard = deck.drawCard();
                     player.drawCard(drawnCard);
-                    System.out.println("You drew a card: " + drawnCard.toString());
+                    System.out.println("\nYou drew a card: " + drawnCard.toString());
                     System.out.println("Your updated hand: " + player.toString());
                     continue;
                 } else {
@@ -272,7 +310,14 @@ System.out.println();
                 saveGame(fileName);
                 System.out.println("Game saved successfully!");
 
+            } 
+
+            else if (input.equals("E")) {
+                exitGame();
+                break;
             }
+
+
 
             for (Card card : player.getHand()) {
                 if (card.getSuit().equals(centerCards.get(0).getSuit())
@@ -362,14 +407,16 @@ System.out.println();
     }
 
     public static Game loadGame(String fileName) {
-        Game game = null;
-        try (ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(fileName))) {
-            game = (Game) inputStream.readObject();
-        } catch (IOException | ClassNotFoundException e) {
-            System.out.println("Error loading the game: " + e.getMessage());
-        }
-        return game;
+    Game game = null;
+    try (ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(fileName))) {
+        game = (Game) inputStream.readObject();
+        game.gameCount++; // Increment gameNumber
+    } catch (IOException | ClassNotFoundException e) {
+        System.out.println("Error loading the game: " + e.getMessage());
     }
+    return game;
+}
+
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -406,4 +453,6 @@ System.out.println();
 
         scanner.close();
     }
+
+    
 }
