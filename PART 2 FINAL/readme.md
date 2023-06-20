@@ -65,3 +65,6 @@ No | Feature                                                                    
 ## D. Link to Part 2 GitHub Repo
 
 (https://github.com/AidaRazak/Javers)
+
+## E. Link to Part 2 Video Presentation
+(https://youtu.be/A993BWoFiNU)
